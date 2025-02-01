@@ -1,28 +1,3 @@
-// Redirect to login page
-function redirectToLogin() {
-    window.location.href = "login.html";
-}
-
-// Redirect to home page after login
-function redirectToHome() {
-    // Get user credentials
-    let username = document.querySelector("input[type='text']").value.trim();
-    let password = document.querySelector("input[type='password']").value.trim();
-
-    // Check if username and password match the stored credentials
-    let storedPassword = localStorage.getItem(username);
-
-    if (storedPassword && storedPassword === password) {
-        // Save logged-in user in localStorage
-        localStorage.setItem("loggedInUser", username);
-        alert("Login successful! Redirecting to home...");
-        window.location.href = "mainhome.html"; // Redirect to mainhome.html
-    } else {
-        alert("Invalid username or password. Please try again.");
-    }
-}
-
-
 // Generate a random quote for the home page
 function newQuote() {
     const quotes = [
@@ -34,70 +9,136 @@ function newQuote() {
     document.getElementById("quote").innerText = quotes[Math.floor(Math.random() * quotes.length)];
 }
 
-// Save gratitude journal entry
+// Save gratitude journal entry with title, content, and timestamp
 function saveEntry() {
-    let entry = document.getElementById("journal").value.trim();
-    if (!entry) {
-        alert("Write something before saving!");
+    const title = document.getElementById("entry-title").value.trim();
+    const content = document.getElementById("journal").value.trim();
+    const date = new Date().toISOString().split('T')[0]; 
+    const time = new Date().toLocaleTimeString(); 
+
+    if (!title || !content) {
+        alert("Please enter both a title and content for your entry.");
         return;
     }
 
-    // Get logged-in user from localStorage
-    let username = localStorage.getItem("loggedInUser");
+    // Retrieve existing entries from localStorage or initialize an empty array
+    let userEntries = JSON.parse(localStorage.getItem("entries")) || [];
 
-    if (!username) {
-        alert("Please log in first!");
-        return;
-    }
+    // Create an entry object
+    const entry = { title, content, date, time };
 
-    // Fetch existing journal entries or create an empty array
-    let userEntries = JSON.parse(localStorage.getItem(username + "_entries")) || [];
-    
-    // Save the new journal entry
+    // Add the new entry
     userEntries.push(entry);
-    localStorage.setItem(username + "_entries", JSON.stringify(userEntries));
 
-    alert("Gratitude entry saved!");
+    // Save updated entries back to localStorage
+    localStorage.setItem("entries", JSON.stringify(userEntries));
+
+    // Clear input fields
+    document.getElementById("entry-title").value = "";
     document.getElementById("journal").value = "";
-    displayEntries();  // Update displayed journal entries
+
+    // Refresh displayed entries
+    displayEntries();
 }
 
-// Display journal entries for the logged-in user
+// Display journal entries for the selected date
 function displayEntries() {
-    let username = localStorage.getItem("loggedInUser");
-    if (!username) return;
-
-    // Fetch saved entries from localStorage
-    let userEntries = JSON.parse(localStorage.getItem(username + "_entries")) || [];
-    let entriesContainer = document.getElementById("entries");
+    let entriesContainer = document.getElementById("entries-list");
 
     if (entriesContainer) {
         entriesContainer.innerHTML = ""; // Clear previous entries
-        userEntries.forEach(entry => {
-            let entryElement = document.createElement("p");
-            entryElement.textContent = "• " + entry;
-            entriesContainer.appendChild(entryElement);
-        });
+
+        // Get selected date from calendar or use today's date by default
+        let selectedDate = document.getElementById("calendar").value || new Date().toISOString().split('T')[0];
+
+        // Fetch saved entries from localStorage
+        let userEntries = JSON.parse(localStorage.getItem("entries")) || [];
+
+        // Filter entries based on selected date
+        let filteredEntries = userEntries.filter(entry => entry.date === selectedDate);
+
+        // Display filtered entries
+        if (filteredEntries.length === 0) {
+            entriesContainer.innerHTML = "<p>No entries for this date yet. Start writing your gratitude now!</p>";
+        } else {
+            filteredEntries.forEach((entry, index) => {
+                let entryDiv = document.createElement("div");
+                entryDiv.classList.add("entry");
+
+                // Create a clickable title
+                let titleElement = document.createElement("h3");
+                titleElement.textContent = `${entry.title} (${entry.time})`;
+
+                // Create a delete button
+                let deleteButton = document.createElement("button");
+                deleteButton.textContent = "Delete";
+                deleteButton.onclick = function () {
+                    deleteEntry(index);
+                };
+
+                // Open paper-style page when title is clicked
+                titleElement.onclick = function () {
+                    openPaper(entry.title, entry.content); // Open paper-style page and pass entry content
+                };
+
+                entryDiv.appendChild(titleElement);
+                entryDiv.appendChild(deleteButton);
+                entriesContainer.appendChild(entryDiv);
+            });
+        }
     }
 }
-// Signup functionality
-function signupUser() {
-    let username = document.getElementById("signup-username").value.trim();
-    let password = document.getElementById("signup-password").value.trim();
 
-    if (username && password) {
-        // Store the new user's credentials in localStorage
-        localStorage.setItem(username, password);
+// Function to open the 'paper-style' page and display the entry content
+function openPaper(title, content) {
+    const paperContainer = document.createElement("div");
+    paperContainer.classList.add("paper-container");
 
-        alert("Sign up successful! Redirecting to home...");
-        window.location.href = "mainhome.html"; // Redirect to mainhome.html
-    } else {
-        alert("Please fill out both fields.");
-    }
+    const paperContent = document.createElement("div");
+    paperContent.classList.add("paper-content");
+
+    const paperTitle = document.createElement("h2");
+    paperTitle.textContent = title;
+
+    const paperText = document.createElement("p");
+    paperText.textContent = content;
+
+    const closeButton = document.createElement("button");
+    closeButton.textContent = "Close";
+    closeButton.classList.add("close-btn");
+    closeButton.onclick = function () {
+        paperContainer.remove(); // Close the paper and remove it from DOM
+    };
+
+    paperContent.appendChild(paperTitle);
+    paperContent.appendChild(paperText);
+    paperContent.appendChild(closeButton);
+    paperContainer.appendChild(paperContent);
+
+    document.body.appendChild(paperContainer); // Append the paper to the body
 }
 
+// Delete a specific journal entry
+function deleteEntry(index) {
+    let userEntries = JSON.parse(localStorage.getItem("entries")) || [];
+    userEntries.splice(index, 1); // Remove the entry at the given index
 
-// Check if the user is logged in on page load and display their entries
-document.addEventListener("DOMContentLoaded", () => {
+    // Save updated entries back to localStorage
+    localStorage.setItem("entries", JSON.stringify(userEntries));
+
+    // Refresh displayed entries
     displayEntries();
-});
+}
+
+// Filter entries based on selected date
+function filterEntriesByDate() {
+    displayEntries();
+}
+
+// Display entries when the page loads
+window.onload = function() {
+    displayEntries();
+};
+
+// Event listener for filtering entries by date
+document.getElementById("calendar").addEventListener("change", filterEntriesByDate);
