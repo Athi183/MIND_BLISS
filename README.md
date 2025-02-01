@@ -1,4 +1,4 @@
-# [Project Name] 🎯
+#  💕🧘🏻‍♂️MindBliss🧘🏻‍♂️💕
 
 
 ## Basic Details
