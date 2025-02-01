@@ -6,7 +6,7 @@ body {
 
 /* Welcome Page */
 .welcome-page {
-    background: linear-gradient(to right, #fceabb, #f8b500);
+    background: linear-gradient(to right, #FFB6C1, #FF8C00);
     height: 100vh;
     display: flex;
     align-items: center;
@@ -36,7 +36,7 @@ button:hover {
 
 /* Login Page */
 .login-page {
-    background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+    background: linear-gradient(to right,#FFB6C1, #FF8C00);
     height: 100vh;
     display: flex;
     align-items: center;
