@@ -2,13 +2,13 @@
 
 
 ## Basic Details
-### Team Name: [Name]
+### Team Name: CODERELLA👑
 
 
 ### Team Members
-- Member 1: [Name] - [College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Member 1: Asiya Muhammed Sali Thachavallath - Muthoot Institute of Technology and Science , Puthencruz
+- Member 2: Athira V - Muthoot Institute of Technology and Science , Puthencruz
+- Member 3: Fathima Mehrin V S - Muthoot Institute of Technology and Science , Puthencruz
 
 ### Hosted Project Link
 [mention your project hosted project link here]
