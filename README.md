@@ -17,7 +17,15 @@
 [2-3 lines about what your project does]
 
 ### The Problem statement
-[What ridiculous problem are you solving?]
+
+### The Silent Battle of Mental Exhaustion
+
+In the relentless rush of life, stress, anxiety, and negativity have become unseen enemies, silently draining our mental well-being. We wake up overwhelmed, scroll endlessly, and go to bed restless—yet rarely pause to reflect on the good. The cycle repeats, leading to burnout, emotional numbness, and a growing disconnect from ourselves.
+
+How can we break free from this mental chaos and build a habit of gratitude, mindfulness, and inner peace—without it feeling like another task?
+
+💡 MindBliss: Your Escape from the Overwhelmed Mind.
+A visually soothing, interactive space where gratitude meets reflection, helping you reclaim clarity, one mindful moment at a time.
 
 ### The Solution
 [How are you solving it? Keep it fun!]
