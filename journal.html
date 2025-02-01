@@ -9,9 +9,29 @@
 <body class="home-page">
     <div class="home-container">
         <h1>Your Gratitude Journal</h1>
+        
+        <!-- Title input -->
+        <input type="text" id="entry-title" placeholder="Enter the title of your gratitude entry" />
+
+        <!-- Textarea for journal entry -->
         <textarea id="journal" placeholder="Write something you're grateful for..."></textarea>
-        <button onclick="saveEntry()">Save Entry</button>
-        <button onclick="goBack()">Back to Main Page</button>
+
+        <!-- Button Container -->
+        <div class="button-container">
+            <button id="save-entry" onclick="saveEntry()">Save Entry</button>
+            <button id="back" onclick="goBack()">Back to Main Page</button>
+        </div>
+        
+        <!-- Calendar to select date -->
+        <input type="date" id="calendar" onchange="filterEntriesByDate()" />
+
+        <!-- Section to display saved gratitude entries -->
+        <div id="saved-entries" class="saved-entries-container">
+            <h2>Your Saved Entries</h2>
+            <div id="entries-list">
+                <!-- Entries will be displayed here dynamically -->
+            </div>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
