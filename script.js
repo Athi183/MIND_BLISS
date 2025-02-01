@@ -16,13 +16,14 @@ function redirectToHome() {
         // Save logged-in user in localStorage
         localStorage.setItem("loggedInUser", username);
         alert("Login successful! Redirecting to home...");
-        window.location.href = "home.html"; // Redirect to homepage
+        window.location.href = "mainhome.html"; // Redirect to mainhome.html
     } else {
         alert("Invalid username or password. Please try again.");
     }
 }
 
-// Generate a random quote
+
+// Generate a random quote for the home page
 function newQuote() {
     const quotes = [
         "Happiness depends upon ourselves. – Aristotle",
@@ -79,6 +80,22 @@ function displayEntries() {
         });
     }
 }
+// Signup functionality
+function signupUser() {
+    let username = document.getElementById("signup-username").value.trim();
+    let password = document.getElementById("signup-password").value.trim();
+
+    if (username && password) {
+        // Store the new user's credentials in localStorage
+        localStorage.setItem(username, password);
+
+        alert("Sign up successful! Redirecting to home...");
+        window.location.href = "mainhome.html"; // Redirect to mainhome.html
+    } else {
+        alert("Please fill out both fields.");
+    }
+}
+
 
 // Check if the user is logged in on page load and display their entries
 document.addEventListener("DOMContentLoaded", () => {
