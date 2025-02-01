@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Home</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="mainhome-page">
+    <div class="mainhome-container">
+        <h1>Welcome to Your Well-being Hub!</h1>
+        
+        <!-- Daily Quote Section -->
+        <div id="quote-container">
+            <p id="quote">Loading quote...</p>
+            <button onclick="newQuote()">Get a New Quote</button>
+        </div>
+
+        <!-- Redirect to Journal Section -->
+        <div class="journal-section">
+            <button onclick="window.location.href = 'journal.html'">Go to Gratitude Journal</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script> <!-- Link to script.js -->
+</body>
+</html>
