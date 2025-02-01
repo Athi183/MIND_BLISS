@@ -1,10 +1,24 @@
-body {
-    font-family: 'Arial', sans-serif;
-    text-align: center;
-    transition: background-color 0.5s;
-}
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Quicksand:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Quicksand:wght@400;600&display=swap');
 
-/* Welcome Page */
+/* Apply Fonts */
+body {
+    font-family: 'Poppins', sans-serif;
+}
+/* Home Page Styling */
+.home-page {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: linear-gradient(135deg, #FFB6C1, #FF8C00); /* Pink and Orange gradient */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
 .welcome-page {
     background: linear-gradient(to right, #FFB6C1, #FF8C00);
     height: 100vh;
@@ -13,6 +27,14 @@ body {
     justify-content: center;
 }
 
+.quote-container {
+    text-align: center;
+    margin-top: 3rem;
+    color: #FF8C00;
+    font-size: 1.8rem;
+    font-style: italic;
+    font-weight: bold;
+}
 .welcome-container {
     background: rgba(255, 255, 255, 0.8);
     padding: 20px;
@@ -20,13 +42,108 @@ body {
     animation: fadeIn 1s ease-in-out;
 }
 
+
+.chat-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.8rem 1.2rem;
+    background-color: #FF8C00;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.chat-button:hover {
+    background-color: #FFB6C1;
+}
+
+/* Login Page */
+.login-page {
+    background: linear-gradient(to right, #FFB6C1, #FF8C00);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px; /* Added padding to ensure the content doesn't touch the edges */
+}
+
+.login-container {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 40px 60px; /* Adjusted padding to make the content fit */
+    border-radius: 20px;
+    animation: fadeIn 1s ease-in-out;
+    width: 100%;
+    max-width: 500px; /* Ensures the container doesn't get too wide */
+    box-sizing: border-box; /* Includes padding in the total width */
+}
+
+.title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #ff758c;
+    text-align: center; /* Centers the title */
+    margin-bottom: 20px; /* Added space between title and form */
+}
+
+/* Input Fields - Username & Password */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #333;
+}
+
+.input-box {
+    display: flex;
+    align-items: center;
+    background: #f8f8f8;
+    border-radius: 10px;
+    padding: 8px;
+    border: 1px solid #FF8C00;
+}
+
+.input-box input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+    flex-grow: 1;
+    padding: 8px;
+}
+
+.input-box .icon {
+    font-size: 18px;
+    color: #888;
+    margin-right: 8px;
+}
+
+.input-box .toggle-password {
+    cursor: pointer;
+    margin-left: 8px;
+    font-size: 18px;
+}
+
+/* Button Styling */
 button {
+    width: 100%;
     background: #ff69b4;
     color: white;
-    padding: 10px 20px;
+    padding: 10px 0;
     border: none;
     cursor: pointer;
-    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 600;
     border-radius: 5px;
 }
 
@@ -34,57 +151,30 @@ button:hover {
     background: #ff1493;
 }
 
-/* Login Page */
-.login-page {
-    background: linear-gradient(to right,#FFB6C1, #FF8C00);
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+Login Page
+/* .login-page { */
+    /* background: linear-gradient(to right,#FFB6C1, #FF8C00); */
+    /* height: 100vh; */
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: center; */
+/* Styling for the "Sign Up" link */
+/* Import Google Fonts */
+
+/* Apply Fonts */
+body {
+    font-family: 'Poppins', sans-serif;
 }
 
-.login-container {
-    background: rgba(255, 255, 255, 0.8);
-    padding: 20px;
-    border-radius: 10px;
-    animation: fadeIn 1s ease-in-out;
+/* Styling specific to the signup page */
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Quicksand:wght@400;600&display=swap');
+
+/* Apply Fonts */
+body {
+    font-family: 'Poppins', sans-serif;
 }
 
-/* Home Page */
-.home-page {
-    background: linear-gradient(to right, #ffefba, #ffffff);
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.home-container {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 20px;
-    border-radius: 10px;
-    animation: slideIn 1s ease-in-out;
-}
-
-textarea {
-    width: 80%;
-    height: 100px;
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-/* Animations */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes slideIn {
-    from { transform: translateY(-20px); }
-    to { transform: translateY(0); }
-}
 /* Styling specific to the signup page */
 .signup-page {
     font-family: 'Arial', sans-serif;
@@ -99,55 +189,86 @@ textarea {
 }
 
 .signup-container {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.8);
+    padding: 40px 60px;
+    border-radius: 20px;
+    animation: fadeIn 1s ease-in-out;
     width: 100%;
-    max-width: 400px;
-    text-align: center;
+    max-width: 500px; /* Ensures the container doesn't get too wide */
+    box-sizing: border-box;
+    text-align: left; /* Align text to the left */
 }
 
+/* Header Styling */
 h2 {
-    color: #FF8C00;
+    font-family: 'Quicksand', sans-serif;
     font-size: 2rem;
+    font-weight: 700;
+    color: #FF8C00;
     margin-bottom: 1.5rem;
 }
 
-input {
-    width: 80%;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border: 2px solid #FF8C00;
-    border-radius: 5px;
-    font-size: 1rem;
+/* Input Fields */
+.input-group {
+    margin-bottom: 20px;
 }
 
-input[type="text"], input[type="password"] {
-    transition: all 0.3s ease;
+.input-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #333;
 }
 
-input[type="text"]:focus, input[type="password"]:focus {
-    border-color: #FFB6C1;
-    outline: none;
+.input-box {
+    display: flex;
+    align-items: center;
+    background: #f8f8f8;
+    border-radius: 10px;
+    padding: 8px;
+    border: 1px solid #FF8C00;
 }
 
-button {
-    background-color: #FF8C00;
-    color: white;
+.input-box input {
     border: none;
-    padding: 1rem;
-    border-radius: 5px;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+    flex-grow: 1;
+    padding: 8px;
+}
+
+.input-box .icon {
+    font-size: 18px;
+    color: #888;
+    margin-right: 8px;
+}
+
+.input-box .toggle-password {
     cursor: pointer;
-    font-size: 1.1rem;
-    width: 80%;
-    transition: background-color 0.3s ease;
+    margin-left: 8px;
+    font-size: 18px;
+}
+
+/* Button Styling */
+button {
+    width: 100%;
+    background: #FF8C00;
+    color: white;
+    padding: 10px 0;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
 }
 
 button:hover {
-    background-color: #FFB6C1;
+    background: #FFB6C1;
 }
 
+/* Styling for the "Already have an account?" link */
 p {
     color: #555;
     font-size: 0.9rem;
@@ -162,11 +283,10 @@ a:hover {
     text-decoration: underline;
 }
 
-.peace-icon {
-    display: inline-block;
-    margin-top: 1.5rem;
-    font-size: 2rem;
-    color: #FF8C00;
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 /* Home Page Styling */
 .home-page {
