@@ -85,8 +85,8 @@ textarea {
     from { transform: translateY(-20px); }
     to { transform: translateY(0); }
 }
-/* Styling specific to the signup page */
-.signup-page {
+/* General Styling */
+body, html {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
@@ -96,6 +96,14 @@ textarea {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.signup-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
 
 .signup-container {
@@ -162,6 +170,7 @@ a:hover {
     text-decoration: underline;
 }
 
+/* Add peace icon styling */
 .peace-icon {
     display: inline-block;
     margin-top: 1.5rem;
