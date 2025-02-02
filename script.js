@@ -1,3 +1,48 @@
+
+ // Redirect to login page
+ function redirectToLogin() {
+    window.location.href = "login.html";
+}
+
+// Redirect to home page after login
+function redirectToHome() {
+    // Get user credentials
+    let username = document.querySelector("input[type='text']").value.trim();
+    let password = document.querySelector("input[type='password']").value.trim();
+
+    // Check if username and password match the stored credentials
+    let storedPassword = localStorage.getItem(username);
+
+    if (storedPassword && storedPassword === password) {
+        // Save logged-in user in localStorage
+        localStorage.setItem("loggedInUser", username);
+        alert("Login successful! Redirecting to home...");
+        window.location.href = "mainhome.html"; // Redirect to mainhome.html
+    } else {
+        alert("Invalid username or password. Please try again.");
+    }}
+// Signup functionality
+function signupUser() {
+    let username = document.getElementById("signup-username").value.trim();
+    let password = document.getElementById("signup-password").value.trim();
+
+    if (username && password) {
+        // Store the new user's credentials in localStorage
+        localStorage.setItem(username, password);
+
+        alert("Sign up successful! Redirecting to home...");
+        window.location.href = "mainhome.html"; // Redirect to mainhome.html
+    } else {
+        alert("Please fill out both fields.");
+    }
+}
+
+
+// Check if the user is logged in on page load and display their entries
+document.addEventListener("DOMContentLoaded", () => {
+    displayEntries();
+});
+
 // Generate a random quote for the home page
 function newQuote() {
     const quotes = [
