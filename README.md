@@ -81,7 +81,7 @@ Directory structure:
 "This page displays the login screen with an option for users to log in or continue if already logged in, ensuring a seamless and personalized experience."
 
 ![Screenshot3]
-![Screenshot (28)](https://github.com/user-attachments/assets/a4e094eb-1caa-4a8c-a635-2f8349c75b5b)
+![Screenshot (28)](https://github.com/user-attachments/assets/a4e094eb-1caa-4a8c-a635-2f8349c75b5b
 "This page serves as the main interface, featuring daily inspirational quotes and a mood tracker that provides personalized well-being suggestions, such as hydration and mindfulness reminders."
 
 ![Screenshot4]
@@ -90,8 +90,7 @@ Directory structure:
 
 ### Project Demo
 # Video
-
-
+https://github.com/user-attachments/assets/d2810850-eb3f-4d9c-8dee-022dbe73f414
 
 ## Team Contributions
 - Asiya Muhammed Sali Thachavallath: Frontend developer.Designed the user interface and implemented the responsive layout.Prepared documentation. 
