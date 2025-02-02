@@ -96,7 +96,7 @@ Directory structure:
 ## Team Contributions
 - Asiya Muhammed Sali Thachavallath: Frontend developer.Designed the user interface and implemented the responsive layout.Prepared documentation. 
 - Fathima Mehrin V S:  Frontend developer.Designed the user interface and implemented the responsive layout.Testing and debugging 
-- Athira V: Backend developer and database manager.Managed the database.Fixed bugs, and optimized performance.
+- Athira V: Frontend developer.Designed the user interface and implemented the responsive layout.Fixed bugs and optimized performance.
 
 ---
 Made with ❤️ at TinkerHub
