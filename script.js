@@ -184,6 +184,24 @@ function deleteEntry(index) {
     // Refresh displayed entries
     displayEntries();
 }
+const slider = document.getElementById("moodSlider");
+const emoji = document.getElementById("emoji");
+
+slider.addEventListener("input", function() {
+    let value = parseInt(slider.value);
+
+    if (value < 20) {
+        emoji.textContent = "😢"; // Sad
+    } else if (value < 40) {
+        emoji.textContent = "😐"; // Neutral
+    } else if (value < 60) {
+        emoji.textContent = "🙂"; // Slightly happy
+    } else if (value < 80) {
+        emoji.textContent = "😁"; // Happy
+    } else {
+        emoji.textContent = "🤩"; // Excited
+    }
+});
 
 // Filter entries based on selected date
 function filterEntriesByDate() {
