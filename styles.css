@@ -702,43 +702,38 @@ button:hover {
     background-color: #ff6a00; /* Darker Orange */
 }
 
-/* Mood Tracker Section */
 .mood-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    padding: 10px;
+    justify-content: center;
+    border: 2px solid #ffcccb; /* Light pink border */
+    border-radius: 10px;
+    padding: 15px;
+    width: 200px;
+    background-color: #fff5f5; /* Soft pink background */
 }
 
-/* Mood Emoji */
-#emoji {
-    font-size: 50px;
-    transition: 0.2s ease;
-}
-
-/* Vertical Slider */
 .slider {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 10px;
-    height: 150px;
-    border-radius: 5px;
-    background: linear-gradient(180deg, #FF0000 0%, #FFCC70 50%, #00FF00 100%);
-    outline: none;
-    transition: opacity 0.2s;
-    writing-mode: bt-lr;
-    -webkit-appearance: slider-vertical;
+    writing-mode: vertical-lr; /* Rotate slider */
+    transform: rotate(180deg); /* Flip slider to left */
+    margin-right: 10px; /* Move slider left */
 }
 
-/* Custom Thumb */
-.slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: white;
-    cursor: pointer;
-    border: 2px solid #333;
+#moodSlider {
+    width: 20px; /* Adjust width */
+    height: 120px; /* Adjust height */
+}
+
+#emoji {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+#suggestion {
+    font-size: 14px;
+    font-weight: bold;
+    color: #ff7f50; /* Coral color */
+    text-align: center;
+    margin-bottom: 5px;
 }

@@ -208,22 +208,29 @@ function deleteEntry(index) {
 }
 const slider = document.getElementById("moodSlider");
 const emoji = document.getElementById("emoji");
+const suggestion = document.getElementById("suggestion");
 
 slider.addEventListener("input", function() {
     let value = parseInt(slider.value);
 
     if (value < 20) {
         emoji.textContent = "😢"; // Sad
+        suggestion.textContent = "Take deep breaths"; 
     } else if (value < 40) {
         emoji.textContent = "😐"; // Neutral
+        suggestion.textContent = "Listen to calming music"; 
     } else if (value < 60) {
         emoji.textContent = "🙂"; // Slightly happy
+        suggestion.textContent = "Take a short break"; 
     } else if (value < 80) {
         emoji.textContent = "😁"; // Happy
+        suggestion.textContent = "Drink some water"; 
     } else {
         emoji.textContent = "🤩"; // Excited
+        suggestion.textContent = "Go for a short walk"; 
     }
 });
+
 
 // Filter entries based on selected date
 function filterEntriesByDate() {
