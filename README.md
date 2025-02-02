@@ -48,17 +48,29 @@ For Software:
 - Languages used: HTML,CSS,JavaScript
 - Libraries used: Local Storage
 - Tools used: VS Code,Git & GitHub.
-
-### Implementation
-For Software:
-# Installation
-[commands]
-
-# Run
-[commands]
-
+  
 ### Project Documentation
 For Software:
+## 1. Project Overview
+MindBliss is an interactive platform designed to help users practice gratitude and mindfulness effortlessly. Through a visually soothing interface, users can log their daily reflections, track their emotions, and find inspiration for mental well-being.
+
+## 2. Features
+✅ Gratitude Journal – A simple and intuitive space to jot down daily gratitude entries.
+✅ Mood Tracker – Helps users analyze emotional patterns over time.
+✅ Inspirational Quotes – Daily doses of positivity to keep motivation high.
+
+## 3. Directory Structure
+Directory structure:
+└── asiiyaah-coderella.git/
+    ├── README.md
+    ├── index.html
+    ├── journal.html
+    ├── login.html
+    ├── mainhome.html
+    ├── script.js
+    ├── signup.html
+    ├── styles.css
+    └── images/
 
 # Screenshots (Add at least 3)
 ![Screenshot1](Add screenshot 1 here with proper name)
@@ -70,44 +82,16 @@ For Software:
 ![Screenshot3](Add screenshot 3 here with proper name)
 *Add caption explaining what this shows*
 
-# Diagrams
-![Workflow](Add your workflow/architecture diagram here)
-*Add caption explaining your workflow*
-
-For Hardware:
-
-# Schematic & Circuit
-![Circuit](Add your circuit diagram here)
-*Add caption explaining connections*
-
-![Schematic](Add your schematic diagram here)
-*Add caption explaining the schematic*
-
-# Build Photos
-![Team](Add photo of your team here)
-
-
-![Components](Add photo of your components here)
-*List out all components shown*
-
-![Build](Add photos of build process here)
-*Explain the build steps*
-
-![Final](Add photo of final product here)
-*Explain the final build*
 
 ### Project Demo
 # Video
 [Add your demo video link here]
 *Explain what the video demonstrates*
 
-# Additional Demos
-[Add any extra demo materials/links]
-
 ## Team Contributions
-- [Name 1]: [Specific contributions]
-- [Name 2]: [Specific contributions]
-- [Name 3]: [Specific contributions]
+- Asiya Muhammed Sali Thachavallath: Frontend developer.Designed the user interface and implemented the responsive layout.Prepared documentation. 
+- Fathima Mehrin V S:  Frontend developer.Designed the user interface and implemented the responsive layout.Testing and debugging 
+- Athira V: Backend developer and database manager.Managed the database.Fixed bugs, and optimized performance.
 
 ---
 Made with ❤️ at TinkerHub
