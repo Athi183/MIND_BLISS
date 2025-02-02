@@ -43,16 +43,38 @@ document.addEventListener("DOMContentLoaded", () => {
     displayEntries();
 });
 
-// Generate a random quote for the home page
+// Large variety of quotes
+const quotes = [
+    "Happiness depends upon ourselves. – Aristotle",
+    "The purpose of our lives is to be happy. – Dalai Lama",
+    "Do what you can, with what you have, where you are. – Theodore Roosevelt",
+    "Be happy with what you have while working for what you want. – Helen Keller",
+    "Success is not the key to happiness. Happiness is the key to success. – Albert Schweitzer",
+    "A calm mind brings inner strength and self-confidence. – Dalai Lama",
+    "Happiness is not something ready-made. It comes from your own actions. – Dalai Lama",
+    "Do more things that make you forget to check your phone.",
+    "Every day may not be good, but there is something good in every day.",
+    "Be patient. Good things take time.",
+    "Happiness looks good on you.",
+    "Focus on the step in front of you, not the whole staircase.",
+    "Sometimes the smallest step in the right direction ends up being the biggest step of your life.",
+    "Don’t let yesterday take up too much of today. – Will Rogers",
+    "Happiness is a journey, not a destination.",
+    "Believe you can and you’re halfway there. – Theodore Roosevelt",
+    "The best way to predict the future is to create it. – Peter Drucker",
+    "You are enough just as you are.",
+    "Difficulties in life are intended to make us better, not bitter."
+];
+
+// Function to generate a new quote automatically
 function newQuote() {
-    const quotes = [
-        "Happiness depends upon ourselves. – Aristotle",
-        "The purpose of our lives is to be happy. – Dalai Lama",
-        "Do what you can, with what you have, where you are. – Theodore Roosevelt",
-        "Be happy with what you have while working for what you want. – Helen Keller"
-    ];
-    document.getElementById("quote").innerText = quotes[Math.floor(Math.random() * quotes.length)];
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    document.getElementById("quote").innerText = quotes[randomIndex];
 }
+
+// Automatically generate a quote on page load
+document.addEventListener("DOMContentLoaded", newQuote);
+
 
 // Save gratitude journal entry with title, content, and timestamp
 function saveEntry() {
