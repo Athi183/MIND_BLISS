@@ -1,4 +1,4 @@
-#  💕🧘🏻‍♂️MindBliss🧘🏻‍♂️💕
+ 💕🧘🏻‍♂️MindBliss🧘🏻‍♂️💕
 
 
 ## Basic Details
@@ -11,7 +11,7 @@
 - Member 3: Fathima Mehrin V S - Muthoot Institute of Technology and Science , Puthencruz
 
 ### Hosted Project Link
-[mention your project hosted project link here]
+https://coderella.vercel.app/
 
 ### Project Description
 MindBliss is an interactive digital space designed to cultivate mindfulness and gratitude in a seamless, stress-free way. Through guided reflections, soothing visuals, and intuitive journaling, it helps users break free from mental exhaustion and build a habit of inner peace—without feeling like another task.
@@ -39,8 +39,6 @@ Instead of forcing mindfulness into a rigid routine, MindBliss turns self-reflec
 🔹 A personal gratitude vault to remind you of life’s bright spots.
 
 No clutter, no judgment—just a safe space to unwind and reclaim your peace, one mindful moment at a time. 💙
-
-Let me know if you want any tweaks! 🚀
 
 ## Technical Details
 ### Technologies/Components Used
@@ -73,20 +71,27 @@ Directory structure:
     └── images/
 
 # Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
+![Screenshot1]
+![Screenshot (26)](https://github.com/user-attachments/assets/fa2368dc-91d8-44d8-aee9-dc45dc645317)
+"This screenshot displays the welcome page of our well-being website, featuring a peaceful gradient background."
 
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
 
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
+![Screenshot2]
+![Screenshot (27)](https://github.com/user-attachments/assets/12375755-20ca-46f7-a7a1-4941d8ed7508)
+"This page displays the login screen with an option for users to log in or continue if already logged in, ensuring a seamless and personalized experience."
 
+![Screenshot3]
+![Screenshot (28)](https://github.com/user-attachments/assets/a4e094eb-1caa-4a8c-a635-2f8349c75b5b)
+"This page serves as the main interface, featuring daily inspirational quotes and a mood tracker that provides personalized well-being suggestions, such as hydration and mindfulness reminders."
+
+![Screenshot4]
+![Screenshot (30)](https://github.com/user-attachments/assets/ee128042-1e04-41ea-a62f-4729a74831fd)
+"This page displays the Gratitude Journal, allowing users to save their entries and view past journal entries based on the selected date."
 
 ### Project Demo
 # Video
-[Add your demo video link here]
-*Explain what the video demonstrates*
+
+
 
 ## Team Contributions
 - Asiya Muhammed Sali Thachavallath: Frontend developer.Designed the user interface and implemented the responsive layout.Prepared documentation. 
