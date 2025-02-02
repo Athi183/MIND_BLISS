@@ -132,7 +132,18 @@ function displayEntries() {
         }
     }
 }
-
+// Go back to the main page
+function goBack() {
+    window.location.href = "mainhome.html"; // Change this to the correct main page URL if needed
+}
+document.addEventListener("DOMContentLoaded", () => {
+    displayEntries();
+    
+    let backButton = document.getElementById("back");
+    if (backButton) {
+        backButton.addEventListener("click", goBack);
+    }
+});
 // Function to open the 'paper-style' page and display the entry content
 function openPaper(title, content) {
     const paperContainer = document.createElement("div");
