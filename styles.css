@@ -647,3 +647,98 @@ body::before {
 body .paper-container {
     display: block;
 }
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Full Page Styling */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ffebcd; /* Light Beige */
+}
+
+/* Main Container */
+.mainhome-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 30px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+}
+
+/* Quote Section */
+#quote-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff8c00; /* Orange */
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #ff6a00; /* Darker Orange */
+}
+
+/* Mood Tracker Section */
+.mood-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+/* Mood Emoji */
+#emoji {
+    font-size: 50px;
+    transition: 0.2s ease;
+}
+
+/* Vertical Slider */
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 150px;
+    border-radius: 5px;
+    background: linear-gradient(180deg, #FF0000 0%, #FFCC70 50%, #00FF00 100%);
+    outline: none;
+    transition: opacity 0.2s;
+    writing-mode: bt-lr;
+    -webkit-appearance: slider-vertical;
+}
+
+/* Custom Thumb */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: white;
+    cursor: pointer;
+    border: 2px solid #333;
+}
