@@ -65,7 +65,6 @@ function saveEntry() {
         alert("Please enter both a title and content for your entry.");
         return;
     }
-
     // Retrieve existing entries from localStorage or initialize an empty array
     let userEntries = JSON.parse(localStorage.getItem("entries")) || [];
 
