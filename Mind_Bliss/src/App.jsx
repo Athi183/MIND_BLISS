@@ -1,10 +1,51 @@
+import { useEffect, useState } from 'react';
 import './App.css';
-import Login from './login'; // Correct import
 
 function App() {
+  const [showMain, setShowMain] = useState(false);
+  const [moveUp, setMoveUp] = useState(false);
+  const [showSubtext, setShowSubtext] = useState(false);
+
+  useEffect(() => {
+    // 1. Show "MindBliss"
+    setShowMain(true);
+
+    // 2. After 1.5s, move it up
+    const moveTimer = setTimeout(() => {
+      setMoveUp(true);
+    }, 500);
+
+    // 3. After another 1s, show subtext
+    const subtextTimer = setTimeout(() => {
+      setShowSubtext(true);
+    }, 1500);
+
+    return () => {
+      clearTimeout(moveTimer);
+      clearTimeout(subtextTimer);
+    };
+  }, []);
+
   return (
-    <div>
-      <Login /> {/* This renders your login page */}
+    <div className="welcome-wrapper">
+      <div className="welcome-card">
+        <h1
+          className={`main-heading 
+            ${showMain ? 'fade-in' : ''} 
+            ${moveUp ? 'move-up' : ''}`}
+        >
+          MindBliss
+        </h1>
+
+        {showSubtext && (
+          <div className={`subtext ${showSubtext ? 'fade-in-delayed' : ''}`}>
+            <h2 className="welcome-heading">Welcome to MindBliss🌿</h2>
+            <p className="quote">Your journey to self-care and mindfulness starts here!.</p>
+            <button className="auth-button">Login / Signup</button>
+
+          </div>
+        )}
+      </div>
     </div>
   );
 }

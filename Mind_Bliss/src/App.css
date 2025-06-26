@@ -1,7 +1,116 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
+
+/* Container setup */
+.welcome-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #F4A02D;
+  font-family: 'Quicksand', sans-serif;
 }
 
+/* Card Styling */
+.welcome-card {
+  text-align: center;
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.15); /* slightly more visible */
+  backdrop-filter: blur(14px);
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  position: relative;
+  width: 90%;
+  max-width: 600px;
+  height: 320px;
+  overflow: hidden;
+}
+
+/* Main heading animation */
+.main-heading {
+  font-family: 'Caveat', cursive;
+  font-size: 80px;
+  font-weight: 1000;
+  color: #ffffff;
+  margin-bottom: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: all 1s ease;
+  margin-bottom: 24px;
+}
+.main-heading::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background-color: #F8E479; /* soft yellow underline */
+  border-radius: 10px;
+}
+
+/* Fade-in effect for heading */
+.fade-in {
+  opacity: 1;
+}
+
+/* Heading grows and shifts up */
+.move-up {
+  font-size: 60px;
+  top: 20px;
+  transform: translateX(-50%);
+}
+
+/* Subtext container animation */
+.subtext {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+/* When subtext fades in */
+.fade-in-delayed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Welcome message */
+.welcome-heading {
+  color: #A63D28;
+  margin-top: 150px;
+  font-size: 24px;
+}
+
+/* Quote styling */
+.quote {
+  color: #555;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+/* Button style */
+.auth-button {
+  margin-top: 20px;
+  padding: 12px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #F8E479;
+  color: #333;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+/* Button hover effect */
+.auth-button:hover {
+  background-color: #e58e1a;
+  color: #fff;
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
