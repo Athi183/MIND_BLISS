@@ -5,6 +5,10 @@
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
+.shake {
+  animation: shake 0.4s ease-in-out;
+  border: 1px solid red;
+}
 
 .signup-wrapper {
   min-height: 100vh;
@@ -50,14 +54,31 @@
   font-size: 16px;
   border-radius: 12px;
   border: none;
-  background-color: #e9dfdf;
-  color: #5A2013;
+  background-color: #e9dfdf;   /* Clean white box */
+  color: #000000;              /* Black text */
   outline: none;
-  width: 100%;
+  width: 95%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* subtle modern shadow */
+  transition: box-shadow 0.2s ease;
+}
+.signup-input:focus {
+  box-shadow: 0 0 0 3px #F4A02D;  /* focus glow in warm orange */
+}
+
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-container .signup-input {
+  width: 93%;
+  padding-right: 45px;
+  padding-bottom: 20px;
 }
 
 .signup-input::placeholder {
-  color: #5A2013;
+  color: #888888;
 }
 
 .signup-button {
@@ -83,7 +104,14 @@
 }
 
 .login-link {
-  color: #555;
+  color: #e35711;
   text-decoration: underline;
   cursor: pointer;
+}
+/* Prevent browser autofill styles */
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+  box-shadow: 0 0 0px 1000px #ffffff inset !important;
+  -webkit-text-fill-color: #000000 !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
