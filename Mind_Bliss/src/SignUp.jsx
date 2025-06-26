@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './SignUp.css';
-
+import { Link } from 'react-router-dom';
+import LoginPage from './login.jsx';
 
 function SignUpPage() {
   const [username, setUsername] = useState('');
@@ -53,8 +54,9 @@ function SignUpPage() {
         </div>
 
         <p className="signup-footer">
-          Already have an account? <a className="login-link" href="/login">Login here</a>
-        </p>
+  Already have an account? <Link className="login-link" to="/login">Login here</Link>
+</p>
+
       </div>
     </div>
   );
