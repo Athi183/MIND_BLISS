@@ -27,6 +27,11 @@ function SignUpPage() {
       alert('Passwords do not match!');
       return;
     }
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    alert('Please enter a valid email address.');
+    return;
+  }
 
     alert('Signup Successful!');
     // Later: Send user data to your backend here
