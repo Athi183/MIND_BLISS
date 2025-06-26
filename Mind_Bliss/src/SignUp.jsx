@@ -3,9 +3,12 @@ import './SignUp.css';
 import { Link } from 'react-router-dom';
 
 function SignUpPage() {
-  const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);  // ✅ Password toggle state
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   useEffect(() => {
     document.body.classList.add('signup-page');
@@ -15,15 +18,18 @@ function SignUpPage() {
   }, []);
 
   const signupUser = () => {
-    if (!username || !password) {
+    if (!name || !email || !password || !confirmPassword) {
       alert('Please fill all fields.');
       return;
     }
-    alert('Signup Successful!');
-  };
 
-  const togglePassword = () => {
-    setShowPassword((prev) => !prev);
+    if (password !== confirmPassword) {
+      alert('Passwords do not match!');
+      return;
+    }
+
+    alert('Signup Successful!');
+    // Later: Send user data to your backend here
   };
 
   return (
@@ -36,21 +42,44 @@ function SignUpPage() {
           <input
             type="text"
             className="signup-input"
-            placeholder="Enter Email"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Enter Your Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
 
+          <input
+            type="email"
+            className="signup-input"
+            placeholder="Enter Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          {/* Password Field */}
           <div className="password-container">
             <input
               type={showPassword ? 'text' : 'password'}
               className="signup-input"
-              placeholder="Enter Password"
+              placeholder="Create New Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <span className="toggle-icon" onClick={togglePassword}>
+            <span className="toggle-icon" onClick={() => setShowPassword((prev) => !prev)}>
               {showPassword ? '👁️' : '🙈'}
+            </span>
+          </div>
+
+          {/* Confirm Password Field */}
+          <div className="password-container">
+            <input
+              type={showConfirmPassword ? 'text' : 'password'}
+              className="signup-input"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            <span className="toggle-icon" onClick={() => setShowConfirmPassword((prev) => !prev)}>
+              {showConfirmPassword ? '👁️' : '🙈'}
             </span>
           </div>
 
