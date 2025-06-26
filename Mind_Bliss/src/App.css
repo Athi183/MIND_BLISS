@@ -7,12 +7,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-image: url('/assets/mindbliss-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0.9;  /* Adjust transparency here 
-  z-index: -1; */
   font-family: 'Quicksand', sans-serif;
 }
 

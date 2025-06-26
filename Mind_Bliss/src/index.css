@@ -23,18 +23,4 @@ html, body, #root {
   overflow: hidden; 
 }
 
-/* body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-image: url('/assets/mindbliss-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0;  /* Adjust transparency here
-  z-index: -1;   /* Keep it behind all content 
-} */
 
