@@ -8,9 +8,13 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url('/assets/mindbliss-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.9;  /* Adjust transparency here */
+  z-index: -1;
 }
-
-
 
 html, body, #root {
   height: 100%;
@@ -19,13 +23,18 @@ html, body, #root {
   overflow: hidden; 
 }
 
-body {
-  font-family: 'Quicksand', sans-serif;
-  background-color: #F4A02D;
-  background-image: url('./assets/mindbliss-bg.jpg');  /* ✅ Path relative to your CSS or use absolute path */
-  background-size: cover;          /* ✅ Make sure the image covers full screen */
-  background-position: center;      /* ✅ Center the image */
-  background-repeat: no-repeat;     
-  background-attachment: fixed;    
-  opacity: 0.5;
-}
+/* body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url('/assets/mindbliss-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;  /* Adjust transparency here
+  z-index: -1;   /* Keep it behind all content 
+} */
+
