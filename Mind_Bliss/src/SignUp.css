@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.signup-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.signup-card {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(14px);
+  border: 2px solid #ffffff30;
+  border-radius: 25px;
+  padding: 50px 40px;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.signup-title {
+  font-size: 36px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.signup-subtitle {
+  font-size: 15px;
+  color: #F8E479;
+  margin-bottom: 30px;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.signup-input {
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 12px;
+  border: none;
+  background-color: #F8E479;
+  color: #5A2013;
+  outline: none;
+  width: 100%;
+}
+
+.signup-input::placeholder {
+  color: #5A2013;
+}
+
+.signup-button {
+  padding: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 12px;
+  border: none;
+  background-color: #F4A02D;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.signup-button:hover {
+  background-color: #e58e1a;
+}
+
+.signup-footer {
+  font-size: 14px;
+  color: #FFFFFF;
+  margin-top: 25px;
+}
+
+.login-link {
+  color: #F8E479;
+  text-decoration: underline;
+  cursor: pointer;
+}

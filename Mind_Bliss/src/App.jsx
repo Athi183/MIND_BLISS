@@ -1,13 +1,14 @@
-import { useState } from 'react'
+
 import './App.css'
+import SignUpPage from './SignUp'
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  //const [count, setCount] = useState(0)
 
   return (
     
-  
-      <h1>MIND BLISS</h1>
+      <SignUpPage/>
       
   )
 }
