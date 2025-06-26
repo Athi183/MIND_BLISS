@@ -42,7 +42,7 @@ const LoginPage = () => {
   return (
     <div className="login-wrapper">
       <div className="login-card">
-        <h1 className="login-title">Login ✨</h1>
+        <h1 className="login-title">Welcome Back!</h1>
         <p className="login-subtitle">Start your day with gratitude</p>
 
         <form className="login-form" onSubmit={handleSubmit}>
