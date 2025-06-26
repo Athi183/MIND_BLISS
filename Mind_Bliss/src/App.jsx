@@ -1,4 +1,4 @@
-
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './App.css';
 
@@ -26,7 +26,7 @@ function App() {
       clearTimeout(subtextTimer);
     };
   }, []);
-
+const navigate = useNavigate();
   return (
     <div className="welcome-wrapper">
       <div className="welcome-card">
@@ -42,7 +42,7 @@ function App() {
           <div className={`subtext ${showSubtext ? 'fade-in-delayed' : ''}`}>
             <h2 className="welcome-heading">Welcome to MindBliss🌿</h2>
             <p className="quote">Your journey to self-care and mindfulness starts here!.</p>
-            <button className="auth-button">Login / Signup</button>
+            <button className="auth-button" onClick={() => navigate('/login')}>Login / Signup</button>
 
           </div>
         )}
