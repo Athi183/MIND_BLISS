@@ -7,11 +7,13 @@ import Login from './login.jsx'
 import Signup from './SignUp.jsx'
 import HomePage from './homepage.jsx';
 
+import Chatbot from './chatbot.jsx'
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
   <Routes>
-    <Route path="/" element={<App />} />
+    <Route path="/" element={<Chatbot />} />
     <Route path="/login" element={<Login />} />
     <Route path="/SignUp" element={<Signup />} />
     <Route path="/homepage" element={<HomePage />} />
