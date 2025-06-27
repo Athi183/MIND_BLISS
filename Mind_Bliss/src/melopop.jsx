@@ -25,10 +25,10 @@ const MeloPopup = () => {
   return (
     <div className={`melo-popup ${visible ? 'show' : ''}`}>
       <Lottie 
-  animationData={animationData} 
-  loop={true}
-  className="melo-animation"
-/>
+      animationData={animationData} 
+      loop={true}
+      className="melo-animation"
+    />
       <div className="melo-text">Hey! Melo here... Wanna chat? 🐾</div>
     </div>
   );
