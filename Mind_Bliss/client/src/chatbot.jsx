@@ -5,7 +5,7 @@ function Chatbot() {
   const [userMessage, setUserMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [showMain, setShowMain] = useState(false);
-  const [moveUp, setMoveUp] = useState(false);
+ 
 
   
   const sendMessage = async () => {
@@ -43,35 +43,31 @@ function Chatbot() {
   useEffect(() => {
       // 1. Show "MindBliss"
       setShowMain(true);
-  
-      // 2. After 1.5s, move it up
-      const moveTimer = setTimeout(() => {
-        setMoveUp(true);
-      }, 500);
 
-      return () => {
-      clearTimeout(moveTimer);
-    };
-  }, []);
-  return (
-    <div className="chatbot-container">
-      <h1
-          className={`main-heading 
-            ${showMain ? 'fade-in' : ''} 
-            ${moveUp ? 'move-up' : ''}`}
-        >
-          MindBliss
-        </h1>
-      <h2>AI Chatbot 💬</h2>
 
-      <div className="chat-messages">
-        {messages.map((msg, index) => (
-          <div key={index} className={`message ${msg.sender}`}>
-            <strong>{msg.sender === 'user' ? 'You:' : 'MindBliss AI:'}</strong>
-            <p>{msg.text}</p>
-          </div>
-        ))}
-      </div>
+      
+      }, []);
+      return (
+        <div className="chatbot-container">
+          <h1
+            className={`main-heading ${showMain ? 'fade-in' : ''}`}
+          >
+            Melo 🌸
+          </h1>
+      {messages.length > 0 && (
+        <div className="chat-messages">
+          {messages.map((msg, index) => (
+            <div key={index} className={`message ${msg.sender}`}>
+              
+              <p>
+                <strong>{msg.sender === 'user' ? 'You:  ' : 'Melo 🌸:  '}</strong>
+                {msg.text}
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
+
 
       <div className="chat-input">
         <input
@@ -81,7 +77,7 @@ function Chatbot() {
           onChange={(e) => setUserMessage(e.target.value)}
           onKeyDown={handleKeyPress}
         />
-        <button onClick={sendMessage}>Send</button>
+        <button onClick={sendMessage}>Bloom 🌸</button>
       </div>
     </div>
   );
