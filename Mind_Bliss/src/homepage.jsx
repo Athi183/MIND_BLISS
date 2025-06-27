@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './homepage.css';
+import MeloPopup from './melopop';
 const Home = () => {
   const [quote, setQuote] = useState('');
   const [author, setAuthor] = useState('');
 
   useEffect(() => {
-    fetch('/assets/quotes.json')  // ✅ relative to public/
+    fetch('/assets/quotes.json')  //  relative to public/
       .then(res => res.json())
       .then(data => {
         const randomIndex = Math.floor(Math.random() * data.length);
@@ -30,6 +31,7 @@ const Home = () => {
         </div>
         <button className="StartJ">Start Journalling</button>
       </div>
+       <MeloPopup />
     </div>
   );
 };
