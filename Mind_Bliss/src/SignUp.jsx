@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './SignUp.css';
-import { Link } from 'react-router-dom';
+import { Link , useNavigate} from 'react-router-dom';
+
 
 function SignUpPage() {
   const [name, setName] = useState('');
@@ -10,6 +11,7 @@ function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  const navigate = useNavigate();
   useEffect(() => {
     document.body.classList.add('signup-page');
     return () => {
@@ -32,9 +34,7 @@ function SignUpPage() {
     alert('Please enter a valid email address.');
     return;
   }
-
-    alert('Signup Successful!');
-    // Later: Send user data to your backend here
+     navigate('/homepage');
   };
 
   return (
