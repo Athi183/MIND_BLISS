@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import './musicplayer.css';
-import { FaVolumeMute, FaVolumeUp } from 'react-icons/fa'; // 🔊🔇 icons
+import { FaVolumeMute, FaVolumeUp } from 'react-icons/fa'; 
 
 const MusicPlayer = () => {
   const audioRef = useRef(null);
@@ -15,9 +15,22 @@ const MusicPlayer = () => {
     audio.muted = muted;
 
     if (!muted) {
-      audio.play().catch((e) => {
-        console.warn('Autoplay blocked:', e.message);
-      });
+      audio.volume = 0;
+      audio.play()
+        .then(() => {
+          let volume = 0;
+          const fadeInterval = setInterval(() => {
+            if (volume < 1) {
+              volume += 0.05;
+              audio.volume = Math.min(volume, 1);
+            } else {
+              clearInterval(fadeInterval);
+            }
+          }, 150);
+        })
+        .catch((e) => {
+          console.warn('Autoplay blocked:', e.message);
+        });
     }
 
     localStorage.setItem('muted', muted);
