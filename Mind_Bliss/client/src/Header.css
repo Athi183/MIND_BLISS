@@ -1,10 +1,13 @@
 
 .mindbliss-header-wrapper {
+  position: fixed;       /*  Keep it fixed */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;         /* Stay above everything else */
+  background-color: transparent;  /* or use your theme background if needed */
+  padding: 30px 0;
   text-align: center;
-  padding-top: 20px;
-  padding-bottom: 10px;
-  z-index: 10;
-  position: relative;
 }
 
 .main-heading-static {

@@ -4,6 +4,7 @@ import './breathe.css';
 import { useNavigate } from 'react-router-dom';
 
 const BreathePop = () => {
+
   const [animationData, setAnimationData] = useState(null);
   const [visible, setVisible] = useState(false);
   const navigate = useNavigate(); 
@@ -23,7 +24,9 @@ const BreathePop = () => {
   if (!animationData) return null;
 
   return (
+    
     <div 
+    
       className={`breathe-popup ${visible ? 'show' : ''}`} 
       onClick={() => navigate('/breathe')}
       style={{ cursor: 'pointer' }}
@@ -33,7 +36,7 @@ const BreathePop = () => {
         loop={true}
         className="breathe-animation"
       />
-      <div className="breathe-text">Feeling a little off? Let’s breathe together 💛</div>
+      <div className="breathe-text">Feeling a little off? Let’s breathe together 🧡</div>
     </div>
   );
 };
