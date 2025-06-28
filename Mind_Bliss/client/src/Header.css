@@ -1,0 +1,31 @@
+
+.mindbliss-header-wrapper {
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  z-index: 10;
+  position: relative;
+}
+
+.main-heading-static {
+  font-family: 'Caveat', cursive;
+  font-size: 60px;
+  font-weight: 1000;
+  color: #fff;
+  display: inline-block;
+  margin: -55px auto;
+  position: relative;
+}
+
+/* Yellow underline */
+.main-heading-static::after {
+  content: "";
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background-color: #F8E479;
+  border-radius: 10px;
+}

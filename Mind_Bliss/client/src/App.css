@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
 
 /* Container setup */
 .welcome-wrapper {
@@ -44,7 +43,7 @@
 .main-heading::after {
   content: "";
   position: absolute;
-  bottom: -10px;
+  bottom: 2px;
   left: 50%;
   transform: translateX(-50%);
   width: 100px;
