@@ -1,33 +1,42 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { FaVolumeUp, FaVolumeMute } from 'react-icons/fa';
+import { useEffect, useRef, useState } from 'react';
 import './musicplayer.css';
+import { FaVolumeMute, FaVolumeUp } from 'react-icons/fa'; // 🔊🔇 icons
 
 const MusicPlayer = () => {
   const audioRef = useRef(null);
-  const [muted, setMuted] = useState(false);
+  const [muted, setMuted] = useState(() => {
+    return localStorage.getItem('muted') === 'true';
+  });
 
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.play().catch(e => {
-        console.log("Autoplay blocked:", e.message);
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.muted = muted;
+
+    if (!muted) {
+      audio.play().catch((e) => {
+        console.warn('Autoplay blocked:', e.message);
       });
     }
-  }, []);
+
+    localStorage.setItem('muted', muted);
+  }, [muted]);
 
   const toggleMute = () => {
-    if (audioRef.current) {
-      audioRef.current.muted = !muted;
-      setMuted(!muted);
-    }
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.muted = !muted;
+    setMuted(!muted);
+    localStorage.setItem('muted', !muted);
   };
 
   return (
     <>
-      <audio ref={audioRef} loop autoPlay>
-        <source src="/assets/bgmusic.mp3" type="audio/mpeg" />
-      </audio>
-      <button className="music-toggle" onClick={toggleMute} title={muted ? 'Unmute' : 'Mute'}>
-        {muted ? <FaVolumeMute /> : <FaVolumeUp />}
+      <audio ref={audioRef} src="/assets/bgmusic.mp3" loop autoPlay />
+      <button className="music-toggle" onClick={toggleMute}>
+        {muted ? <FaVolumeMute color="#A63D28" size={22} /> : <FaVolumeUp color="#A63D28" size={22} />}
       </button>
     </>
   );
