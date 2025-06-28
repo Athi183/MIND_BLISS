@@ -713,13 +713,13 @@ width: 40px;
 }
 .date-picker-wrapper {
   position: relative;
-  width: 96%;
+  width: 90%;
   margin-bottom: -10px;
   margin-top: 15px; 
 }
 
 .date-picker {
-  width: 95%;
+  width: 88%;
   padding: 3px 38px 6px 127px; /* extra right padding for icon */
   font-size: 18px;
   border-radius: 10px;

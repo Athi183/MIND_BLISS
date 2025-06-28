@@ -32,7 +32,7 @@ const Journal = () => {
 
   const handleSave = () => {
     if (!title.trim()) {
-      alert('Please enter a title. It is mandatory.');
+      alert('Please enter a title.');
       return;
     }
     if (!note.trim()) {
@@ -42,7 +42,7 @@ const Journal = () => {
     const newEntry = {
       id: Date.now(),
       text: note,
-      title: title,
+      title,
       date: selectedDate,
       time: new Date().toLocaleTimeString(),
     };
@@ -73,7 +73,13 @@ const Journal = () => {
     }
   };
 
-  const entriesByDate = entries.filter(entry => new Date(entry.date).toDateString() === selectedDate.toDateString());
+  const formatDate = (date) => {
+    return new Date(date).toISOString().split('T')[0];
+  };
+
+  const entriesByDate = entries.filter(
+    entry => new Date(entry.date).toDateString() === selectedDate.toDateString()
+  );
 
   return (
     <>
@@ -184,7 +190,9 @@ const Journal = () => {
                     </div>
                   </div>
 
-                  <span className="entry-time">🕒 {entry.time}</span>
+                  <span className="entry-time">
+                    📅 {formatDate(entry.date)} | 🕒 {entry.time}
+                  </span>
 
                   {showCheckboxes && (
                     <div className="entry-actions">
@@ -240,7 +248,9 @@ const Journal = () => {
           <div className="expanded-area">
             <div className="expanded-card">
               <h3 className="entry-title">{editingEntryModal.title}</h3>
-              <p className="entry-time">📅 {editingEntryModal.date} | 🕒 {editingEntryModal.time}</p>
+              <p className="entry-time">
+                📅 {formatDate(editingEntryModal.date)} | 🕒 {editingEntryModal.time}
+              </p>
               <textarea
                 value={editedModalText}
                 onChange={(e) => setEditedModalText(e.target.value)}
@@ -280,7 +290,9 @@ const Journal = () => {
         {modalEntry && (
           <div className="expanded-area">
             <h3 className="entry-title">{modalEntry.title}</h3>
-            <p className="entry-time">📅 {modalEntry.date} | 🕒 {modalEntry.time}</p>
+            <p className="entry-time">
+              📅 {formatDate(modalEntry.date)} | 🕒 {modalEntry.time}
+            </p>
             <textarea
               value={modalEntry.text}
               readOnly
