@@ -115,3 +115,30 @@ input:-webkit-autofill {
   -webkit-text-fill-color: #000000 !important;
   transition: background-color 5000s ease-in-out 0s;
 }
+.google-signup-button {
+  /*background-color: #ffffff; /* White background */
+  color: #ffffff;           /* Black text */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* space between icon and text */
+  border: 1px solid #ccc;
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 12px;
+  cursor: pointer;
+  background-color: #F8E479;
+  /*transition: background-color 0.3s ease;*/
+  margin-top: 10px;  /* spacing from Sign Up button */
+}
+
+.google-signup-button:hover {
+  background-color: #e58e1a;
+}
+
+.google-logo {
+  height: 20px;
+  width: 20px;
+}

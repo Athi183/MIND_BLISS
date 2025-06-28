@@ -91,6 +91,15 @@ function SignUpPage() {
           <button className="signup-button" onClick={signupUser}>
             Sign Up
           </button>
+          {/* Google Sign-Up Button */}
+<button className="google-signup-button">
+  <img
+  src="assets/google-logo.png"
+    alt="Google Logo"
+    className="google-logo"
+  />
+  Sign Up with Google
+</button>
         </div>
 
         <p className="signup-footer">
