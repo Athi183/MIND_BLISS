@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useRef } from 'react';
 import './login.css';
-import { Link } from 'react-router-dom';
+import { Link , useNavigate } from 'react-router-dom';
+
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -10,6 +11,7 @@ const LoginPage = () => {
 
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+  const navigate = useNavigate();
 
   const togglePassword = () => setShowPassword(!showPassword);
 
@@ -29,9 +31,9 @@ const LoginPage = () => {
     }
 
     if (!hasError) {
-      console.log('Form submitted');
+      //  Redirect to home page
+      navigate('/homepage'); //  Redirects to homepage
     }
-
     // Remove shake effect after animation
     setTimeout(() => {
       emailRef.current?.classList.remove('shake');

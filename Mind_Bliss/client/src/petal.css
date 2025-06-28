@@ -1,0 +1,25 @@
+.petal {
+    position: absolute; 
+    top: -50px;
+    width: 100px;
+    height: 100px;
+    background-image: url('/assets/petal.png');
+    background-size:100%;
+    background-repeat: no-repeat;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 9999;
+    animation-name: fall;
+    animation-duration: 5s; /* Default fall duration */
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;   
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}

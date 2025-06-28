@@ -1,0 +1,36 @@
+.breathe-popup {
+  position: fixed;
+  top: -280px;
+  left: 20px;
+  width: auto;
+  z-index: 1000;
+  transition: top 1s ease-in-out;
+  text-align: center;
+  display: flex;
+  flex-direction: column; /* 🟢 stack vertically */
+  align-items: center;    /* center horizontally */
+}
+
+.breathe-popup.show {
+  top: 5px;
+}
+
+.breathe-animation {
+  width: 150px;
+  height: 150px;
+  margin-bottom: -23px; /* bring text box closer */
+}
+
+.breathe-text {
+  background-color: #fff8dc;
+  padding: 6px 12px;
+  font-size: 16px;
+  border-radius: 20px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  color: #333;
+}
+.breathe-popup:hover .breathe-text {
+  background-color: #f8e479;  /* soft yellow on hover */
+  color: #000;
+  transform: scale(1.05);
+}
