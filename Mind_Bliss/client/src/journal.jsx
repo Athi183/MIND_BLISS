@@ -1,20 +1,9 @@
 // src/Journal.jsx
-import React, { useState, useEffect,forwardRef } from 'react';
-import './Journal.css';
-import { format } from 'date-fns';
-import { FiMaximize2 } from 'react-icons/fi'; // Modern expand icon
-import { FiX } from 'react-icons/fi'; // Clean close icon
-import { FiEdit2, FiTrash2 } from 'react-icons/fi';
+import React, { useState, useEffect } from 'react';
+import './journal.css';
+import { FiMaximize2, FiX, FiEdit2, FiTrash2, FiCalendar } from 'react-icons/fi';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { FiCalendar } from 'react-icons/fi';
-
-//const CustomDateInput = forwardRef(({ value, onClick }, ref) => (
-  //<div className="custom-date-input" onClick={onClick} ref={ref}>
-   // <span>{value}</span>
-   // <FiCalendar className="calendar-icon" />
-  //</div>
-//));
 
 const emojiList = [
   '😊', '😢', '😠', '❤️', '👍', '🎉', '✨', '🌿', '💡', '📅', '💖'
@@ -29,12 +18,8 @@ const Journal = () => {
   const [note, setNote] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [expanded, setExpanded] = useState(false);
-  const [showOpenButton, setShowOpenButton] = useState(false);
-  const [editingId, setEditingId] = useState(null);  // For editing
-  const [editedText, setEditedText] = useState('');  // For edited content
   const [selectedEntries, setSelectedEntries] = useState([]);
   const [title, setTitle] = useState('');
-  const [expandedEntryId, setExpandedEntryId] = useState(null);
   const [modalEntry, setModalEntry] = useState(null); 
   const [showCheckboxes, setShowCheckboxes] = useState(false);
   const [focusedField, setFocusedField] = useState(null);
@@ -46,7 +31,7 @@ const Journal = () => {
   }, [entries]);
 
   const handleSave = () => {
-     if (!title.trim()) {
+    if (!title.trim()) {
       alert('Please enter a title. It is mandatory.');
       return;
     }
@@ -66,31 +51,27 @@ const Journal = () => {
     setTitle('');
     setFocusedField(null);
   };
-  const handleUpdate = (id) => {
-    const updated = entries.map(entry =>
-      entry.id === id ? { ...entry, text: editedText } : entry
-    );
-    setEntries(updated);
-    setEditingId(null);
-    setEditedText('');
-  };
+
   const toggleDeleteSelection = (id, checked) => {
     setSelectedEntries(prev =>
       checked ? [...prev, id] : prev.filter(entryId => entryId !== id)
     );
   };
+
   const handleDeleteSelected = () => {
     const updated = entries.filter(entry => !selectedEntries.includes(entry.id));
     setEntries(updated);
     setSelectedEntries([]);
     setShowCheckboxes(false);
   };
+
   const addEmoji = (emoji) => {
     if (focusedField === 'title') {
-    setTitle(prev => prev + emoji);
-  } else {
-    setNote(prev => prev + emoji);
-  }};
+      setTitle(prev => prev + emoji);
+    } else {
+      setNote(prev => prev + emoji);
+    }
+  };
 
   const entriesByDate = entries.filter(entry => new Date(entry.date).toDateString() === selectedDate.toDateString());
 
@@ -100,34 +81,27 @@ const Journal = () => {
         <div className={`journal-card ${expanded ? 'hidden' : ''}`}>
           <h2>Your Daily Journal</h2>
 
-{/*<input
-  type="date"
-  value={selectedDate}
-  onChange={(e) => setSelectedDate(e.target.value)}
-  className="date-picker melted-animated"
-/>*/}
-<div className="date-picker-wrapper">
-  <FiCalendar className="calendar-icon-inside" />
-<DatePicker
-  selected={selectedDate}
-  onChange={(date) => setSelectedDate(date)}
-  className="date-picker"
-  dateFormat="MMMM d, yyyy"
-/>
-</div>
-{/* ➕ ADD TITLE FIELD BELOW DATE */}
-<input
-  type="text"
-  className="journal-title"
-  placeholder="Title..."
-  value={title}
-  onChange={(e) => setTitle(e.target.value)}
-  onFocus={() => setFocusedField('title')}
-  required
-/>
+          <div className="date-picker-wrapper">
+            <FiCalendar className="calendar-icon-inside" />
+            <DatePicker
+              selected={selectedDate}
+              onChange={(date) => setSelectedDate(date)}
+              className="date-picker"
+              dateFormat="MMMM d, yyyy"
+            />
+          </div>
 
-          <div
-            className="textarea-wrapper">
+          <input
+            type="text"
+            className="journal-title"
+            placeholder="Title..."
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            onFocus={() => setFocusedField('title')}
+            required
+          />
+
+          <div className="textarea-wrapper">
             <textarea
               value={note}
               onChange={(e) => setNote(e.target.value)}
@@ -135,9 +109,9 @@ const Journal = () => {
               className="journal-textarea melted-animated"
               onFocus={() => setFocusedField('note')}
             />
-          <button className="open-btn expand-icon-btn" onClick={() => setExpanded(true)}>
-    <FiMaximize2 size={20} />
-  </button>
+            <button className="open-btn expand-icon-btn" onClick={() => setExpanded(true)}>
+              <FiMaximize2 size={20} />
+            </button>
           </div>
 
           <div className="emoji-picker">
@@ -154,167 +128,157 @@ const Journal = () => {
 
           <div className="entry-list">
             <div className="entry-header-with-trash">
-            <h3 className="entry-date-heading">Entries for {selectedDate.toDateString()}</h3>
-             <div className="top-action-buttons">
-    {entriesByDate.length>10 && showCheckboxes && selectedEntries.length > 0 && (
-      <>
-      <button className="delete-btn-inline" onClick={handleDeleteSelected}>
-        <FiTrash2 /> Delete
-      </button>
-      <button
-        className="cancel-btn-inline"
-        onClick={() => {
-          setSelectedEntries([]);
-          setShowCheckboxes(false);
-        }}
-      >
-        Cancel
-      </button>
-    </>
-  )}
-            <button
-    className="trash-top-btn"
-    title="Delete entries"
-    onClick={() => setShowCheckboxes(prev => !prev)}
-  >
-    <FiTrash2 size={20} />
-  </button>
-</div></div>
+              <h3 className="entry-date-heading">Entries for {selectedDate.toDateString()}</h3>
+              <div className="top-action-buttons">
+                {entriesByDate.length > 10 && showCheckboxes && selectedEntries.length > 0 && (
+                  <>
+                    <button className="delete-btn-inline" onClick={handleDeleteSelected}>
+                      <FiTrash2 /> Delete
+                    </button>
+                    <button
+                      className="cancel-btn-inline"
+                      onClick={() => {
+                        setSelectedEntries([]);
+                        setShowCheckboxes(false);
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </>
+                )}
+                <button
+                  className="trash-top-btn"
+                  title="Delete entries"
+                  onClick={() => setShowCheckboxes(prev => !prev)}
+                >
+                  <FiTrash2 size={20} />
+                </button>
+              </div>
+            </div>
+
             {entriesByDate.length === 0 ? (
               <p>No entries yet.</p>
             ) : (
-            entriesByDate.map((entry, idx) => (
-  <div key={entry.id} className="entry-item">
+              entriesByDate.map((entry) => (
+                <div key={entry.id} className="entry-item">
+                  <div className="entry-title-row">
+                    <h4 className="entry-title">{entry.title}</h4>
+                    <div className="entry-actions-horizontal">
+                      <button
+                        className="icon-only"
+                        onClick={() => {
+                          setEditingEntryModal(entry);
+                          setEditedModalText(entry.text);
+                        }}
+                        title="Edit Entry"
+                      >
+                        <FiEdit2 size={18} />
+                      </button>
+                      <button
+                        className="expand-btn"
+                        onClick={() => setModalEntry(entry)}
+                        title="Open Entry"
+                      >
+                        Open
+                      </button>
+                    </div>
+                  </div>
 
-  <div className="entry-title-row">
-    <h4 className="entry-title">{entry.title}</h4>
-<div className="entry-actions-horizontal">
-   
-  <button className="icon-only"
-    onClick={() => {
-      setEditingEntryModal(entry);
-      setEditedModalText(entry.text);
-    }}
-    title="Edit Entry"
-  >
-<FiEdit2 size={18} />
-</button>
-      <button
-        className="expand-btn"
-        onClick={() => setModalEntry(entry)}
-        title="Open Entry"
-      >
-        Open
-      </button>
-    </div>
-    </div>
-
-    <span className="entry-time">🕒 {entry.time}</span>
-    {editingEntryModal && (
-  <div className="expanded-area">
-    <div className="expanded-card">
-      <h3 className="entry-title">{editingEntryModal.title}</h3>
-      <p className="entry-time">📅 {editingEntryModal.date} | 🕒 {editingEntryModal.time}</p>
-      <textarea
-        value={editedModalText}
-        onChange={(e) => setEditedModalText(e.target.value)}
-        className="expanded-textarea melted-animated"
-        autoFocus
-      />
-      <div style={{ position: 'relative' ,paddingTop: '30px'}}>
-        <button
-          className="save-btn"
-          onClick={() => {
-            const updated = entries.map(entry =>
-              entry.id === editingEntryModal.id
-                ? { ...entry, text: editedModalText }
-                : entry
-            );
-            setEntries(updated);
-            setEditingEntryModal(null);
-            setEditedModalText('');
-          }}
-        >
-          Update
-        </button>
-        <button
-          className="edit-close-btn"
-          onClick={() => {
-            setEditingEntryModal(null);
-            setEditedModalText('');
-          }}
-        >
-          <FiX size={20} />
-        </button>
-      </div>
-    </div>
-  </div>
-)}
+                  <span className="entry-time">🕒 {entry.time}</span>
 
                   {showCheckboxes && (
-    <div className="entry-actions">
-      <input
-        type="checkbox"
-        className="styled-checkbox"
-        onChange={(e) => toggleDeleteSelection(entry.id, e.target.checked)}
-        checked={selectedEntries.includes(entry.id)}
-      />
-    </div>)}
-  </div>
-            ))
-  )}
-{selectedEntries.length > 0 && (
-  <div className="bottom-action-buttons">
-              <button className="action-btn delete-btn" onClick={handleDeleteSelected}>
-                <FiTrash2 /> Delete Selected
-              </button>
-              <button
-      className="action-btn cancel-delete-btn"
-      onClick={() => {
-        setSelectedEntries([]);
-        setShowCheckboxes(false);
-      }}
-    >
-     ❌ Cancel Deletion
-    </button>
+                    <div className="entry-actions">
+                      <input
+                        type="checkbox"
+                        className="styled-checkbox"
+                        onChange={(e) => toggleDeleteSelection(entry.id, e.target.checked)}
+                        checked={selectedEntries.includes(entry.id)}
+                      />
+                    </div>
+                  )}
+                </div>
+              ))
+            )}
+
+            {selectedEntries.length > 0 && (
+              <div className="bottom-action-buttons">
+                <button className="action-btn delete-btn" onClick={handleDeleteSelected}>
+                  <FiTrash2 /> Delete Selected
+                </button>
+                <button
+                  className="action-btn cancel-delete-btn"
+                  onClick={() => {
+                    setSelectedEntries([]);
+                    setShowCheckboxes(false);
+                  }}
+                >
+                  ❌ Cancel Deletion
+                </button>
               </div>
             )}
-         { /* {showCheckboxes && selectedEntries.length > 0 && (
-  <div className="cancel-btn-wrapper">
-    <button
-      className="cancel-btn"
-      onClick={() => {
-        setSelectedEntries([]);
-        setShowCheckboxes(false);
-      }}
-    >
-      ❌ Cancel Deletion
-    </button>
-  </div>
-)} */}
-
           </div>
         </div>
-      
 
-      {expanded && (
-        <div className="expanded-area">
+        {expanded && (
+          <div className="expanded-area">
             <div className="expanded-card">
-          <textarea
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-            placeholder="Dear Diary..."
-            className="expanded-textarea melted-animated"
-            autoFocus
-          />
-          <button className="close-btn icon-only" onClick={() => setExpanded(false)}>
-  <FiX size={20} />
-</button>
-        </div> </div>
-      )}
- {/* === View Entry Modal === */}
-      {modalEntry && (
-        <div className="expanded-area">
+              <textarea
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+                placeholder="Dear Diary..."
+                className="expanded-textarea melted-animated"
+                autoFocus
+              />
+              <button className="close-btn icon-only" onClick={() => setExpanded(false)}>
+                <FiX size={20} />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {editingEntryModal && (
+          <div className="expanded-area">
+            <div className="expanded-card">
+              <h3 className="entry-title">{editingEntryModal.title}</h3>
+              <p className="entry-time">📅 {editingEntryModal.date} | 🕒 {editingEntryModal.time}</p>
+              <textarea
+                value={editedModalText}
+                onChange={(e) => setEditedModalText(e.target.value)}
+                className="expanded-textarea melted-animated"
+                autoFocus
+              />
+              <div style={{ position: 'relative', paddingTop: '30px' }}>
+                <button
+                  className="save-btn"
+                  onClick={() => {
+                    const updated = entries.map(entry =>
+                      entry.id === editingEntryModal.id
+                        ? { ...entry, text: editedModalText }
+                        : entry
+                    );
+                    setEntries(updated);
+                    setEditingEntryModal(null);
+                    setEditedModalText('');
+                  }}
+                >
+                  Update
+                </button>
+                <button
+                  className="edit-close-btn"
+                  onClick={() => {
+                    setEditingEntryModal(null);
+                    setEditedModalText('');
+                  }}
+                >
+                  <FiX size={20} />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {modalEntry && (
+          <div className="expanded-area">
             <h3 className="entry-title">{modalEntry.title}</h3>
             <p className="entry-time">📅 {modalEntry.date} | 🕒 {modalEntry.time}</p>
             <textarea
@@ -325,9 +289,9 @@ const Journal = () => {
             <button className="close-btn icon-only" onClick={() => setModalEntry(null)}>
               <FiX size={20} />
             </button>
-          </div>      )}
-</div>
-
+          </div>
+        )}
+      </div>
     </>
   );
 };
