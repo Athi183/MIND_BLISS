@@ -60,9 +60,12 @@ function Chatbot() {
     <div className="chatbot-container">
       <PetalAnimation />
       {/* Top Heading */}
-      <h1 className={`main-heading ${showMain ? 'fade-in' : ''}`}>
-        <span>Melo 🌸</span>
+      <h1 className={`main-heading1 ${showMain ? 'fade-in' : ''}`}>
+        <span>Wanna chat with Melo?</span>
+        
       </h1>
+      <h2>Share your worries, thoughts or anything...
+            I'm here as your companion 💬✨</h2>
 
       {/* Chat Messages */}
       {messages.length > 0 && (

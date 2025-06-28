@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
 .chatbot-container {
   max-width: 900px;
     height: 650px;
@@ -20,7 +20,7 @@
   justify-content: flex-start;  /* ✅ Push children towards top vertically */
 }
 
-.main-heading {
+.main-heading1 {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,38 +29,52 @@
   left: 50%;
   transform: translateX(-50%);
   font-size: 45px;
-  color: #d63384;
+  color: #ffffff;
   font-weight: bold;
   opacity: 0;
   transition: opacity 1s ease;
 }
 
-.main-heading.fade-in {
+.main-heading1.fade-in {
   opacity: 1;
+  animation: floatGlow 2.5s ease-in-out infinite;
+  text-shadow: 0 0 8px #FF7EB9, 0 0 16px #FF65A3;
 }
-
 
 /* ✨ Floating + Glow Effect */
 @keyframes floatGlow {
   0% {
-    transform: translateY(0px);
-    text-shadow: 0 0 5px #FFB6B9, 0 0 10px #FFB6B9;
+    transform: translate(-50%, 0px);  /* Center + no vertical shift */
+    text-shadow: 0 0 8px #ff7e7e, 0 0 16px #ff6565;
   }
   50% {
-    transform: translateY(-6px);
-    text-shadow: 0 0 10px #FF6F61, 0 0 20px #FF6F61;
+    transform: translate(-50%, -10px);  /* Float up */
+    text-shadow: 0 0 12px #ff8965, 0 0 24px #ff6565;
   }
   100% {
-    transform: translateY(0px);
-    text-shadow: 0 0 5px #FFB6B9, 0 0 10px #FFB6B9;
+    transform: translate(-50%, 0px);
+    text-shadow: 0 0 8px #ff7e7e, 0 0 16px #ff6565;
   }
 }
 
+@keyframes popInUser {
+  0% {
+    transform: scale(0.8) translateX(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateX(0);
+    opacity: 1;
+  }
+}
 
 h2 {
   font-size: 20px;
-  color: #FF9A8B;
+  color: #fffdfd;
   margin-bottom: 20px;
+  margin-top: 60px;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Chat Messages Box */
@@ -87,25 +101,42 @@ h2 {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
 }
 
-.message.user p{
-  background-color: #FFF5CC; /* Soft light yellow */
+.message.user p {
+  background: linear-gradient(135deg, #FFECB3, #FFE082); /* Soft light yellow-orange */
+  color: #333;
   align-self: flex-end;
   margin-left: auto;
-  color: #333;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  padding: 12px 16px;
+  border-radius: 18px 18px 4px 18px; /* Chat bubble shape */
+  box-shadow: 0 3px 8px rgba(255, 204, 0, 0.3);
+  animation: popInUser 0.3s ease;
 }
 
-.message.bot p{
-  background-color: #FFE0C7; /* Soft pastel peach */
-  color: #333;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-  animation: fadeIn 0.4s ease;
+
+.message.bot p {
+  background: linear-gradient(135deg, #FFD6E8, #FF9A8B); /* Pink pastel */
+  color: #4E2A2A;
+  padding: 12px 16px;
+  border-radius: 18px 18px 18px 4px; /* Bubble shape */
+  box-shadow: 0 3px 8px rgba(255, 105, 180, 0.3);
+  animation: popInBot 0.3s ease;
 }
 
-.message strong p{
+@keyframes popInBot {
+  0% {
+    transform: scale(0.8) translateX(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateX(0);
+    opacity: 1;
+  }
+}
+
+.message p strong {
   display: block;
-  font-size: 14px;
-  color: #E86A92;
+  font-size: 12px;
+  color: #E86A92;  /* Light pink sender name */
   margin-bottom: 4px;
   font-weight: bold;
 }

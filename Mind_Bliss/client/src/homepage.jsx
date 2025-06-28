@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './homepage.css';
 import MeloPopup from './melopop';
+import BreathePop from './breathe'; 
+import MusicPlayer from './musicplayer'; 
+
 const Home = () => {
   const [quote, setQuote] = useState('');
   const [author, setAuthor] = useState('');
@@ -22,6 +25,7 @@ const Home = () => {
 
   return (
     <div className="home-wrapper">
+      <MusicPlayer /> 
       <div className="home-content">
         <h1 className="home-heading">Hi There! 🌞</h1>
         <div className="quote-generator">
@@ -31,7 +35,9 @@ const Home = () => {
         </div>
         <button className="StartJ">Start Journalling</button>
       </div>
-       <MeloPopup />
+
+      <BreathePop /> 
+      <MeloPopup />   
     </div>
   );
 };
