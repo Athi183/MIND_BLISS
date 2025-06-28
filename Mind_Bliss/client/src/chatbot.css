@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
+
 .chatbot-container {
   max-width: 900px;
-    height: 650px;
-    margin: 40px auto;
-    padding: 50px 80px;
+  margin-top: 120px;
+  height: 650px;
+  margin-left: 400px;
+  padding: 50px 50px;
   background-color: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(15px);
   border: 2px solid #ffffff40;
@@ -13,22 +15,22 @@
   color: #333333;
   position: relative;
   overflow: hidden;
-
   display: flex;
   flex-direction: column;
-  align-items: center;      /* ✅ Horizontal center */
-  justify-content: flex-start;  /* ✅ Push children towards top vertically */
+  align-items: center;
+  justify-content: flex-start;
 }
 
+/* Main Heading with Lottie */
 .main-heading1 {
   display: flex;
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: 10px;
+  top: 0px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 45px;
+  font-size: 30px;
   color: #ffffff;
   font-weight: bold;
   opacity: 0;
@@ -41,19 +43,105 @@
   text-shadow: 0 0 8px #FF7EB9, 0 0 16px #FF65A3;
 }
 
-/* ✨ Floating + Glow Effect */
+/* Floating Glow Animation */
 @keyframes floatGlow {
   0% {
-    transform: translate(-50%, 0px);  /* Center + no vertical shift */
+    transform: translate(-50%, 0px);
     text-shadow: 0 0 8px #ff7e7e, 0 0 16px #ff6565;
   }
   50% {
-    transform: translate(-50%, -10px);  /* Float up */
+    transform: translate(-50%, -10px);
     text-shadow: 0 0 12px #ff8965, 0 0 24px #ff6565;
   }
   100% {
     transform: translate(-50%, 0px);
     text-shadow: 0 0 8px #ff7e7e, 0 0 16px #ff6565;
+  }
+}
+
+/* Second Heading */
+h2 {
+  font-size: 20px;
+  color: #fffdfd;
+  margin-top: 70px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Intro GIF - Below title */
+.melo-intro-gif {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.melo-intro-gif img {
+  width: 450px;
+  height: auto;
+  border-radius: 20px;
+  
+}
+
+/* Chat Messages Area */
+.chat-messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  width: 100%;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 18px;
+  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+}
+
+/* Chat Bubbles */
+.message p {
+  margin-bottom: 12px;
+  border-radius: 16px;
+  padding: 12px 14px;
+  width: fit-content;
+  max-width: 80%;
+  animation: bounceIn 0.3s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+}
+
+.message.user p {
+  background: linear-gradient(135deg, #FFECB3, #FFE082);
+  color: #333;
+  align-self: flex-end;
+  margin-left: auto;
+  border-radius: 18px 18px 4px 18px;
+  box-shadow: 0 3px 8px rgba(255, 204, 0, 0.3);
+  animation: popInUser 0.3s ease;
+}
+
+.message.bot p {
+  background: linear-gradient(135deg, #FFD6E8, #FF9A8B);
+  color: #4E2A2A;
+  border-radius: 18px 18px 18px 4px;
+  box-shadow: 0 3px 8px rgba(255, 105, 180, 0.3);
+  animation: popInBot 0.3s ease;
+}
+
+.message p strong {
+  display: block;
+  font-size: 12px;
+  color: #E86A92;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+/* Animations */
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 
@@ -68,60 +156,6 @@
   }
 }
 
-h2 {
-  font-size: 20px;
-  color: #fffdfd;
-  margin-bottom: 20px;
-  margin-top: 60px;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Chat Messages Box */
-.chat-messages {
-  margin-top: 70px;
-  flex-grow: 1;               /* ✅ Chat messages will fill available space */
-  overflow-y: auto;
-  width: 100%;
-  padding: 20px;
-  background-color: rgba(255, 255, 255, 0.3);
-  border-radius: 18px;
-  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.05);
-  margin-bottom: 20px;
-}
-
-/* Chat Bubbles */
-.message p{
-  margin-bottom: 12px;
-  border-radius: 16px;
-  padding: 12px 14px;
-  width: fit-content;
-  max-width: 80%;
-  animation: bounceIn 0.3s ease;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
-}
-
-.message.user p {
-  background: linear-gradient(135deg, #FFECB3, #FFE082); /* Soft light yellow-orange */
-  color: #333;
-  align-self: flex-end;
-  margin-left: auto;
-  padding: 12px 16px;
-  border-radius: 18px 18px 4px 18px; /* Chat bubble shape */
-  box-shadow: 0 3px 8px rgba(255, 204, 0, 0.3);
-  animation: popInUser 0.3s ease;
-}
-
-
-.message.bot p {
-  background: linear-gradient(135deg, #FFD6E8, #FF9A8B); /* Pink pastel */
-  color: #4E2A2A;
-  padding: 12px 16px;
-  border-radius: 18px 18px 18px 4px; /* Bubble shape */
-  box-shadow: 0 3px 8px rgba(255, 105, 180, 0.3);
-  animation: popInBot 0.3s ease;
-}
-
 @keyframes popInBot {
   0% {
     transform: scale(0.8) translateX(-20px);
@@ -133,15 +167,7 @@ h2 {
   }
 }
 
-.message p strong {
-  display: block;
-  font-size: 12px;
-  color: #E86A92;  /* Light pink sender name */
-  margin-bottom: 4px;
-  font-weight: bold;
-}
-
-/* Chat Input Section */
+/* Input Section */
 .chat-input {
   width: 100%;
   display: flex;
@@ -156,7 +182,7 @@ h2 {
   border-radius: 14px;
   border: none;
   background-color: #FFF5EC;
-  color: #000000;
+  color: #000;
   outline: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.2s ease;
@@ -167,11 +193,11 @@ h2 {
 }
 
 .chat-input input::placeholder {
-  color: #888888;
+  color: #888;
   font-style: italic;
 }
 
-/* Chat Send Button */
+/* Send Button */
 .chat-input button {
   padding: 14px 20px;
   font-size: 16px;
@@ -189,30 +215,6 @@ h2 {
   transform: scale(1.08);
 }
 
-/* Message Bounce */
-@keyframes bounceIn {
-  0% {
-    transform: scale(0.9);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-/* Bot Message Fade In */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 /* Scrollbar Styling */
 .chat-messages::-webkit-scrollbar {
   width: 6px;
@@ -226,38 +228,13 @@ h2 {
 .chat-messages::-webkit-scrollbar-track {
   background: transparent;
 }
-/* .melo-animation-box {
-  width: 100%;
-  max-height: 150px;
-  overflow: hidden;
-  margin-bottom: 10px;
-}
-.melo-animation {
-  width: 100%;
-  height: 100px;
-} */
-.melo-send-button {
-  width: 70px;
-  height: 70px;
-  border: none;
-  background: transparent;
-  padding: 5px;
-  display: flex;
+
+/* Lottie Inline Near Heading */
+.melo-lottie-inline {
+  width: 130px;
+  height: 130px;
+  margin-left: 1px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  overflow: hidden; /* Prevent overflow */
-}
-
-.melo-send-button .melo-lottie-inline {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;    /* ✅ Vertical center */
-  justify-content: center; /* ✅ Horizontal center */
-}
-
-.melo-send-button .melo-lottie-inline > div {
-  transform: scale(5);        /* ✅ Controls how big the Lottie grows INSIDE the fixed button */
-  transform-origin: center;   /* ✅ Make sure scaling stays centered */
 }

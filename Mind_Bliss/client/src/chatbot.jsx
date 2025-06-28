@@ -3,7 +3,6 @@ import './chatbot.css';
 import Lottie from 'lottie-react';
 import PetalAnimation from './PetalAnimation.jsx';
 
-
 function Chatbot() {
   const [userMessage, setUserMessage] = useState('');
   const [messages, setMessages] = useState([]);
@@ -11,7 +10,6 @@ function Chatbot() {
   const [animationData, setAnimationData] = useState(null);
   const [visible, setVisible] = useState(false);
 
-  // Fetch Lottie animation for the send button
   useEffect(() => {
     setShowMain(true);
 
@@ -59,13 +57,25 @@ function Chatbot() {
   return (
     <div className="chatbot-container">
       <PetalAnimation />
-      {/* Top Heading */}
+
+      {/* Heading with Lottie animation */}
       <h1 className={`main-heading1 ${showMain ? 'fade-in' : ''}`}>
-        <span>Wanna chat with Melo?</span>
-        
+        Wanna chat with Melo?{' '}
+        {animationData && visible && (
+          <div className="melo-lottie-inline">
+            <Lottie animationData={animationData} loop={true} />
+          </div>
+        )}
       </h1>
-      <h2>Share your worries, thoughts or anything...
-            I'm here as your companion 💬✨</h2>
+
+      <h2>Share your worries, thoughts or anything... I'm here as your companion 💬✨</h2>
+
+      {/* Intro GIF - Only show when chat is empty */}
+      {messages.length === 0 && (
+        <div className="melo-intro-gif">
+          <img src="/assets/melo-intro.gif" alt="Melo Intro" />
+        </div>
+      )}
 
       {/* Chat Messages */}
       {messages.length > 0 && (
@@ -81,7 +91,7 @@ function Chatbot() {
         </div>
       )}
 
-      {/* Input Box */}
+      {/* Input Section */}
       <div className="chat-input">
         <input
           type="text"
@@ -91,14 +101,8 @@ function Chatbot() {
           onKeyDown={handleKeyPress}
         />
         <button onClick={sendMessage} className="melo-send-button">
-        {animationData && visible ? (
-          <div className="melo-lottie-inline">
-            <Lottie animationData={animationData} loop={true} />
-          </div>
-        ) : (
-          'Bloom 🌸'
-        )}
-      </button>
+          Bloom 🌸
+        </button>
       </div>
     </div>
   );
