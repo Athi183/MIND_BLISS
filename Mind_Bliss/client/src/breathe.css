@@ -29,3 +29,8 @@
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
   color: #333;
 }
+.breathe-popup:hover .breathe-text {
+  background-color: #f8e479;  /* soft yellow on hover */
+  color: #000;
+  transform: scale(1.05);
+}

@@ -27,3 +27,8 @@
   margin: 0 auto;        /* center horizontally */
   display: block;
 }
+.melo-popup:hover .melo-text {
+  background-color: #f8e479; /* soft yellow on hover */
+  color: #000; /* make text darker if needed */
+  transform: scale(1.05);
+}

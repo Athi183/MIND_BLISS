@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Lottie from 'lottie-react';
 import './breathe.css';
+import { useNavigate } from 'react-router-dom';
 
 const BreathePop = () => {
   const [animationData, setAnimationData] = useState(null);
   const [visible, setVisible] = useState(false);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     // Load the Lottie animation from public folder
@@ -21,7 +23,11 @@ const BreathePop = () => {
   if (!animationData) return null;
 
   return (
-    <div className={`breathe-popup ${visible ? 'show' : ''}`}>
+    <div 
+      className={`breathe-popup ${visible ? 'show' : ''}`} 
+      onClick={() => navigate('/breathe')}
+      style={{ cursor: 'pointer' }}
+    >
       <Lottie
         animationData={animationData}
         loop={true}

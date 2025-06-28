@@ -1,0 +1,28 @@
+/* src/BreathePage.css */
+
+.breathe-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.bubble-animation-section {
+  margin-top: 40px;
+}
+
+.bubble-animation {
+  width: 280px;
+  height: 280px;
+}
+
+.instruction {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+}
