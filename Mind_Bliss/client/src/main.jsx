@@ -11,6 +11,7 @@ import HomePage from './homepage.jsx'
 import Chatbot from './chatbot.jsx'
 import BreathePage from './BreathePage.jsx'
 import MainLayout from './MainLayout.jsx' //  
+import Journal from './journal';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -20,7 +21,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/" element={<App />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-
+        <Route path="/journal" element={<Journal />} />
         {/* All post-login routes wrapped with header + music */}
         <Route element={<MainLayout />}>
           <Route path="/homepage" element={<HomePage />} />
