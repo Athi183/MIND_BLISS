@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import './homepage.css';
 import MeloPopup from './melopop';
 import BreathePop from './breathe'; 
-import MusicPlayer from './musicplayer'; 
-import Header from './Header';
 
 const Home = () => {
   const [quote, setQuote] = useState('');
@@ -25,9 +23,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="home-wrapper">
-      <Header />
-      <MusicPlayer /> 
+    <div className="home-wrapper"> 
 
       <div className="home-content">
         <h1 className="home-heading">Hi There! 🌞</h1>

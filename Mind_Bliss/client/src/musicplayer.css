@@ -1,3 +1,4 @@
+/* musicplayer.css */
 .music-toggle {
   position: fixed;
   top: 20px;
@@ -7,9 +8,9 @@
   border-radius: 50%;
   padding: 12px;
   backdrop-filter: blur(6px);
-  color:#A63D28 ;
+  color: #A63D28;
   font-size: 20px;
-  z-index: 999;
+  z-index: 9999;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s ease;

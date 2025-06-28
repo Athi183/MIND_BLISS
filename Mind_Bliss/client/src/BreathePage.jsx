@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Lottie from 'lottie-react';
 import './BreathePage.css';
-import MusicPlayer from './musicplayer';
-import Header from './Header';
 import { useNavigate } from 'react-router-dom';
 
 const BreathePage = () => {
@@ -13,13 +11,13 @@ const BreathePage = () => {
   const [showAnimation, setShowAnimation] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
 
-
   useEffect(() => {
     fetch('/assets/bubble.json')
       .then((res) => res.json())
       .then((data) => setAnimationData(data))
       .catch((err) => console.error('Failed to load bubble.json:', err));
   }, []);
+
   const handleStart = () => {
     setStarted(true);
     setShowMessage(false);
@@ -33,11 +31,10 @@ const BreathePage = () => {
         setCountdown(null);
         setShowAnimation(true);
 
-        // Show message after 10s of animation
         setTimeout(() => {
           setShowAnimation(false);
           setShowMessage(true);
-          setStarted(false); // Re-enable start again
+          setStarted(false);
         }, 24000);
       } else {
         setCountdown(counter);
@@ -47,26 +44,25 @@ const BreathePage = () => {
 
   return (
     <div className="breathe-page-wrapper">
-      <Header />
       <div className="arrow-wrapper">
-  <span className="back-arrow" onClick={() => navigate('/homepage')}>&larr;</span>
-</div>
-      <MusicPlayer />
+        <span className="back-arrow" onClick={() => navigate('/homepage')}>&larr;</span>
+      </div>
 
       <div className="bubble-animation-section">
         {/* Countdown */}
         {countdown !== null && <p className="countdown">{countdown}</p>}
-        
+
         {/* Breathing animation */}
         {showAnimation && animationData && (
-          <Lottie animationData={animationData} loop={true} className="bubble-animation" />
+          <Lottie animationData={animationData} loop className="bubble-animation" />
         )}
-        
-         {/* Instruction under animation */}
+
+        {/* Instruction */}
         {showAnimation && (
           <p className="instruction">Inhale peace, exhale stress. ❤️</p>
         )}
-        {/* Stop button during animation */}
+
+        {/* Stop button */}
         {showAnimation && (
           <button
             className="stop-breathing-btn"
@@ -80,7 +76,8 @@ const BreathePage = () => {
             Stop
           </button>
         )}
-        {/* Motivational message after animation */}
+
+        {/* Message after animation */}
         {showMessage && (
           <div className="completion-message">
             <p>Well done 💛</p>
@@ -88,15 +85,32 @@ const BreathePage = () => {
           </div>
         )}
 
-        {!started && !showAnimation && (
+        {/* Intro and Start Button */}
+        {!started && !showAnimation && !showMessage && (
+          <>
+            <div className="breathing-intro">
+              <h2> Bubble Breathing</h2>
+              <p>
+                This is a calming exercise that helps reduce stress and anxiety.
+                As the bubble grows, inhale deeply… and as it shrinks, exhale slowly.
+                Let’s breathe together and bring peace to your mind..☺️
+              </p>
+            </div>
+            <button className="start-breathing-btn" onClick={handleStart}>
+              Try out
+            </button>
+          </>
+        )}
+
+        {/* If animation is done, show "Start Again" */}
+        {!started && !showAnimation && showMessage && (
           <button className="start-breathing-btn" onClick={handleStart}>
-            {showMessage ? "Start Again" : "Start Breathing 🌬️"}
+            Start Again
           </button>
         )}
       </div>
     </div>
   );
-}; 
-
+};
 
 export default BreathePage;

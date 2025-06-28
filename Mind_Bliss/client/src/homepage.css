@@ -10,26 +10,25 @@ body, html {
   position: relative;
   width: 100vw;
   height: 100vh;
-  display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: start;
-  padding-top: 10vh;
+  justify-content: center; /* adjust based on your layout */
   text-align: center;
   background-color: transparent;
+  overflow: hidden;
 }
 
 .home-heading {
   font-size:45px;
   color: #ffffff;
-  margin-bottom: 25px;
+  margin-bottom: 3px;
 }
 
 .quote-heading {
   font-size: 24px;
   font-weight: 1000;
-  color:;#A63D28
-  margin-bottom: 10px;
+  color:#A63D28;
+  margin-bottom: 30px;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
@@ -64,7 +63,7 @@ body, html {
   padding: 20px ;
   max-width: 500px;
    min-height: 250px;
-  margin: 20px auto;
+  margin: 5px auto;
   text-align: center;
   overflow:hidden;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
@@ -108,4 +107,8 @@ body, html {
 
 .home-heading {
   animation: fadeSlideUp 1.5s ease-in-out forwards;
+}
+
+.home-content {
+  margin-top: 100px; /* or adjust as needed */
 }
