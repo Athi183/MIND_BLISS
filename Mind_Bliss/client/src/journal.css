@@ -153,21 +153,29 @@ html {
   box-shadow: 0 2px 6px rgba(244, 162, 97, 0.3);
 }
 /* === Expand / Collapse Button === */
-.expand-btn {
+.expand-icon-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 10px;
   background: #fcbf49;
-  color: #333;
   border: none;
-  border-radius: 10px;
-  padding: 6px 15px;
-  cursor: pointer;
-  font-weight: bold;
-  margin-top: 8px;
-  transition: background 0.3s;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 18px;
+  padding: 80px;
+  transition: transform 0.3s;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-.expand-btn:hover {
+.expand-icon-btn:hover {
+  transform: scale(1.1);
   background-color: #e6a823;
 }
+
 /* === Expanded Entry Modal === */
 .expanded-area {
   position: fixed;
