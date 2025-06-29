@@ -1,6 +1,6 @@
 /* Journal.css */
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
+
 .journal-wrapper {
  
   display: flex;
@@ -36,6 +36,7 @@ html {
  box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  overflow: visible;
 }
 
 @keyframes meltedShift {
@@ -152,21 +153,29 @@ html {
   box-shadow: 0 2px 6px rgba(244, 162, 97, 0.3);
 }
 /* === Expand / Collapse Button === */
-.expand-btn {
+.expand-icon-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 10px;
   background: #fcbf49;
-  color: #333;
   border: none;
-  border-radius: 10px;
-  padding: 6px 15px;
-  cursor: pointer;
-  font-weight: bold;
-  margin-top: 8px;
-  transition: background 0.3s;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 18px;
+  padding: 80px;
+  transition: transform 0.3s;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-.expand-btn:hover {
+.expand-icon-btn:hover {
+  transform: scale(1.1);
   background-color: #e6a823;
 }
+
 /* === Expanded Entry Modal === */
 .expanded-area {
   position: fixed;
@@ -753,4 +762,22 @@ padding-left: 32px;  /* 👈 shifts the text inside to the right */
   font-size: 20px;
   color: #0a0000;
   pointer-events: none; /* Prevent the icon from blocking input clicks */
+}
+.arrow-wrapper {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 9999;
+}
+
+.back-arrow {
+  font-size: 28px;
+  color: #5a2013;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.back-arrow:hover {
+  transform: scale(1.2);
+  color: #F8E479;
 }
