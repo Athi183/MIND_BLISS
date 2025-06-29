@@ -27,7 +27,8 @@ function App() {
     };
   }, []);
 const navigate = useNavigate();
-  return (
+  return ( 
+
     <div className="welcome-wrapper">
       <div className="welcome-card">
         <h1

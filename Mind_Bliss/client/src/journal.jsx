@@ -1,13 +1,11 @@
-// src/Journal.jsx
 import React, { useState, useEffect } from 'react';
-import './journal.css';
 import { FiMaximize2, FiX, FiEdit2, FiTrash2, FiCalendar } from 'react-icons/fi';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from 'react-router-dom';
 
 const emojiList = [
-  '😊', '😢', '😠', '❤️', '👍', '🎉', '✨', '🌿', '💡', '📅', '💖'
+  '😊', '😢', '😠', '❤', '👍', '🎉', '✨', '🌿', '💡', '📅', '💖'
 ];
 
 const Journal = () => {
@@ -83,233 +81,289 @@ const Journal = () => {
     entry => new Date(entry.date).toDateString() === selectedDate.toDateString()
   );
 
+  // Background for the whole page (MindBliss style)
+  // You may want to wrap this page in a div with a background image or gradient in App.jsx, but for now, we add here:
   return (
-    <>
-<div className={`journal-wrapper ${expanded ? 'blurred' : ''}`}>
-      <div className="arrow-wrapper">
-  <span className="back-arrow" onClick={() => navigate('/homepage')}>&larr;</span>
-</div>
-        <div className={`journal-card ${expanded ? 'hidden' : ''}`}>
-          <h2>Your Daily Journal</h2>
-
-          <div className="date-picker-wrapper">
-            <FiCalendar className="calendar-icon-inside" />
-            <DatePicker
-              selected={selectedDate}
-              onChange={(date) => setSelectedDate(date)}
-              className="date-picker"
-              dateFormat="MMMM d, yyyy"
-            />
-          </div>
-
-          <input
-            type="text"
-            className="journal-title"
-            placeholder="Title..."
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            onFocus={() => setFocusedField('title')}
-            required
+    <div className="min-h-screen w-full flex items-center justify-center bg-orange-100 relative"
+      style={{
+        backgroundImage: `url('/your-bg-image.jpg'), linear-gradient(120deg,#fceabb 0%,#f8b500 100%)`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      {/* Optional: Top-left back arrow */}
+      <div className="absolute top-8 left-8 z-20">
+        <span
+          className="text-3xl text-[#5a2013] cursor-pointer hover:scale-110 hover:text-yellow-200 transition"
+          onClick={() => navigate('/homepage')}
+        >
+          &larr;
+        </span>
+      </div>
+      {/* Centered Card */}
+      <div className={`relative w-full max-w-xl bg-white/80 shadow-2xl rounded-3xl p-10 flex flex-col items-center
+        ${expanded ? "blur-sm pointer-events-none select-none" : ""} 
+        backdrop-blur-md border border-orange-200`}
+      >
+        <h2 className="font-pacifico text-center mb-6 text-3xl text-brown-900 drop-shadow-lg">Your Daily Journal</h2>
+        {/* Date Picker */}
+        <div className="w-full flex items-center mb-4 relative">
+          <DatePicker
+            selected={selectedDate}
+            onChange={(date) => setSelectedDate(date)}
+            className="w-full py-3 px-6 pr-12 rounded-xl border border-orange-200 bg-gradient-to-r from-yellow-100 to-yellow-200 text-brown-900 font-pacifico shadow outline-none focus:ring-2 focus:ring-orange-300 transition"
+            dateFormat="MMMM d, yyyy"
           />
+          <FiCalendar className="absolute right-4 text-xl text-orange-600 pointer-events-none" />
+        </div>
 
-          <div className="textarea-wrapper">
+        {/* Title input */}
+        <input
+          type="text"
+          className="w-full py-3 px-6 rounded-xl border border-orange-200 mb-4 bg-gradient-to-r from-yellow-100 to-yellow-200 text-brown-900 font-pacifico placeholder-gray-400 shadow outline-none focus:ring-2 focus:ring-orange-300 transition"
+          placeholder="Title..."
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          onFocus={() => setFocusedField('title')}
+          required
+        />
+
+        {/* Note textarea wrapper */}
+        <div className="w-full mb-4 relative">
+          <textarea
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            placeholder="Dear Diary..."
+            className="w-full h-32 py-4 px-6 rounded-xl border border-orange-200 bg-gradient-to-br from-yellow-100 to-orange-100 text-brown-800 placeholder-orange-700 font-medium shadow focus:ring-2 focus:ring-orange-300 resize-none transition"
+            onFocus={() => setFocusedField('note')}
+          />
+          <button
+            className="absolute bottom-2 right-2 text-lg text-orange-600 hover:text-orange-900 transition"
+            onClick={() => setExpanded(true)}
+            title="Expand"
+          >
+            <FiMaximize2 />
+          </button>
+        </div>
+
+        {/* Emoji Picker */}
+        <div className="flex flex-wrap gap-3 mb-4 justify-center">
+          {emojiList.map((emoji, index) => (
+            <button
+              key={index}
+              onClick={() => addEmoji(emoji)}
+              className="bg-transparent border-none text-2xl cursor-pointer transition hover:scale-125"
+              type="button"
+            >
+              {emoji}
+            </button>
+          ))}
+        </div>
+
+        {/* Save Button */}
+        <button
+          className="w-full py-3 bg-orange-500 hover:bg-orange-400 text-white font-bold text-lg rounded-xl shadow transition mb-4"
+          onClick={handleSave}
+        >
+          Save Entry
+        </button>
+
+        {/* Entry List */}
+        <div className="w-full mt-2">
+          <div className="flex items-start justify-between mb-3">
+            <h3 className="text-lg font-bold text-brown-900 font-sans">
+              Entries for {selectedDate.toDateString()}
+            </h3>
+            {/* Trash & delete controls */}
+            <div className="flex items-center gap-2">
+              {entriesByDate.length > 10 && showCheckboxes && selectedEntries.length > 0 && (
+                <>
+                  <button
+                    className="flex items-center gap-1 bg-red-600 text-white rounded-md px-3 py-1 text-sm hover:bg-red-700 transition"
+                    onClick={handleDeleteSelected}
+                  >
+                    <FiTrash2 /> Delete
+                  </button>
+                  <button
+                    className="bg-gray-400 text-white rounded-md px-3 py-1 text-sm hover:bg-gray-700 transition"
+                    onClick={() => {
+                      setSelectedEntries([]);
+                      setShowCheckboxes(false);
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </>
+              )}
+              <button
+                className="bg-transparent border-none text-red-500 hover:text-red-700 text-xl ml-2 transition"
+                title="Delete entries"
+                onClick={() => setShowCheckboxes(prev => !prev)}
+              >
+                <FiTrash2 />
+              </button>
+            </div>
+          </div>
+          {/* Entries */}
+          {entriesByDate.length === 0 ? (
+            <p className="text-gray-500 text-base text-left pl-3">No entries yet.</p>
+          ) : (
+            entriesByDate.map((entry) => (
+              <div
+                key={entry.id}
+                className="bg-white/70 border border-orange-100 shadow rounded-lg p-4 mb-3 flex flex-col"
+              >
+                <div className="flex justify-between items-center mb-2">
+                  <h4 className="font-bold text-base text-orange-900 font-pacifico">{entry.title}</h4>
+                  <div className="flex gap-2">
+                    <button
+                      className="text-orange-700 hover:text-orange-900 p-1"
+                      onClick={() => {
+                        setEditingEntryModal(entry);
+                        setEditedModalText(entry.text);
+                      }}
+                      title="Edit Entry"
+                    >
+                      <FiEdit2 size={18} />
+                    </button>
+                    <button
+                      className="text-orange-700 hover:text-orange-900 p-1"
+                      onClick={() => setModalEntry(entry)}
+                      title="Open Entry"
+                    >
+                      Open
+                    </button>
+                  </div>
+                </div>
+                <span className="text-xs italic text-orange-600 bg-orange-50 px-2 py-1 rounded mb-2 font-mono">
+                  📅 {formatDate(entry.date)} | 🕒 {entry.time}
+                </span>
+                {showCheckboxes &&
+                  <div className="flex items-center mt-2">
+                    <input
+                      type="checkbox"
+                      className="w-5 h-5 border-2 border-orange-400 rounded bg-white checked:bg-orange-400 accent-orange-400 transition"
+                      onChange={(e) => toggleDeleteSelection(entry.id, e.target.checked)}
+                      checked={selectedEntries.includes(entry.id)}
+                    />
+                  </div>
+                }
+              </div>
+            ))
+          )}
+
+          {selectedEntries.length > 0 && (
+            <div className="flex justify-center gap-12 mt-4 mb-4">
+              <button
+                className="flex items-center gap-2 bg-red-600 text-white rounded-lg px-6 py-2 font-bold hover:bg-red-700 transition"
+                onClick={handleDeleteSelected}
+              >
+                <FiTrash2 /> Delete Selected
+              </button>
+              <button
+                className="bg-gray-400 text-white rounded-lg px-6 py-2 font-bold hover:bg-gray-700 transition"
+                onClick={() => {
+                  setSelectedEntries([]);
+                  setShowCheckboxes(false);
+                }}
+              >
+                ❌ Cancel Deletion
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Expanded Area Modal */}
+      {expanded && (
+        <div className="fixed inset-0 bg-black/40 z-30 flex items-center justify-center">
+          <div className="bg-white/90 rounded-2xl shadow-xl p-8 max-w-xl w-full relative">
             <textarea
               value={note}
               onChange={(e) => setNote(e.target.value)}
               placeholder="Dear Diary..."
-              className="journal-textarea melted-animated"
-              onFocus={() => setFocusedField('note')}
+              className="w-full h-60 py-4 px-6 rounded-xl border border-orange-200 bg-gradient-to-br from-yellow-100 to-orange-100 text-brown-800 placeholder-orange-700 font-medium shadow focus:ring-2 focus:ring-orange-300 resize-none transition"
+              autoFocus
             />
-            <button className="open-btn expand-icon-btn" onClick={() => setExpanded(true)}>
-              <FiMaximize2 size={20} />
+            <button
+              className="absolute top-4 right-4 text-red-500 text-2xl hover:text-red-700 transition"
+              onClick={() => setExpanded(false)}
+              title="Close"
+            >
+              <FiX />
             </button>
           </div>
+        </div>
+      )}
 
-          <div className="emoji-picker">
-            {emojiList.map((emoji, index) => (
-              <button key={index} onClick={() => addEmoji(emoji)} className="emoji-btn">
-                {emoji}
+      {/* Edit Entry Modal */}
+      {editingEntryModal && (
+        <div className="fixed inset-0 bg-black/40 z-40 flex items-center justify-center">
+          <div className="bg-white/90 rounded-2xl shadow-xl p-8 max-w-xl w-full relative">
+            <h3 className="font-pacifico text-xl mb-2">{editingEntryModal.title}</h3>
+            <p className="text-xs italic text-orange-600 bg-orange-50 px-2 py-1 rounded mb-2 font-mono">
+              📅 {formatDate(editingEntryModal.date)} | 🕒 {editingEntryModal.time}
+            </p>
+            <textarea
+              value={editedModalText}
+              onChange={(e) => setEditedModalText(e.target.value)}
+              className="w-full h-48 py-4 px-6 rounded-xl border border-orange-200 bg-gradient-to-br from-yellow-100 to-orange-100 text-brown-800 placeholder-orange-700 font-medium shadow focus:ring-2 focus:ring-orange-300 resize-none transition"
+              autoFocus
+            />
+            <div className="flex justify-between items-center mt-6">
+              <button
+                className="bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-6 rounded-xl shadow transition"
+                onClick={() => {
+                  const updated = entries.map(entry =>
+                    entry.id === editingEntryModal.id
+                      ? { ...entry, text: editedModalText }
+                      : entry
+                  );
+                  setEntries(updated);
+                  setEditingEntryModal(null);
+                  setEditedModalText('');
+                }}
+              >
+                Update
               </button>
-            ))}
-          </div>
-
-          <button className="save-btn" onClick={handleSave}>
-            Save Entry
-          </button>
-
-          <div className="entry-list">
-            <div className="entry-header-with-trash">
-              <h3 className="entry-date-heading">Entries for {selectedDate.toDateString()}</h3>
-              <div className="top-action-buttons">
-                {entriesByDate.length > 10 && showCheckboxes && selectedEntries.length > 0 && (
-                  <>
-                    <button className="delete-btn-inline" onClick={handleDeleteSelected}>
-                      <FiTrash2 /> Delete
-                    </button>
-                    <button
-                      className="cancel-btn-inline"
-                      onClick={() => {
-                        setSelectedEntries([]);
-                        setShowCheckboxes(false);
-                      }}
-                    >
-                      Cancel
-                    </button>
-                  </>
-                )}
-                <button
-                  className="trash-top-btn"
-                  title="Delete entries"
-                  onClick={() => setShowCheckboxes(prev => !prev)}
-                >
-                  <FiTrash2 size={20} />
-                </button>
-              </div>
+              <button
+                className="bg-gray-400 text-white rounded-xl px-6 py-2 font-bold hover:bg-gray-700 transition flex items-center gap-2"
+                onClick={() => {
+                  setEditingEntryModal(null);
+                  setEditedModalText('');
+                }}
+              >
+                <FiX /> Close
+              </button>
             </div>
-
-            {entriesByDate.length === 0 ? (
-              <p>No entries yet.</p>
-            ) : (
-              entriesByDate.map((entry) => (
-                <div key={entry.id} className="entry-item">
-                  <div className="entry-title-row">
-                    <h4 className="entry-title">{entry.title}</h4>
-                    <div className="entry-actions-horizontal">
-                      <button
-                        className="icon-only"
-                        onClick={() => {
-                          setEditingEntryModal(entry);
-                          setEditedModalText(entry.text);
-                        }}
-                        title="Edit Entry"
-                      >
-                        <FiEdit2 size={18} />
-                      </button>
-                      <button
-                        className="expand-btn"
-                        onClick={() => setModalEntry(entry)}
-                        title="Open Entry"
-                      >
-                        Open
-                      </button>
-                    </div>
-                  </div>
-
-                  <span className="entry-time">
-                    📅 {formatDate(entry.date)} | 🕒 {entry.time}
-                  </span>
-
-                  {showCheckboxes && (
-                    <div className="entry-actions">
-                      <input
-                        type="checkbox"
-                        className="styled-checkbox"
-                        onChange={(e) => toggleDeleteSelection(entry.id, e.target.checked)}
-                        checked={selectedEntries.includes(entry.id)}
-                      />
-                    </div>
-                  )}
-                </div>
-              ))
-            )}
-
-            {selectedEntries.length > 0 && (
-              <div className="bottom-action-buttons">
-                <button className="action-btn delete-btn" onClick={handleDeleteSelected}>
-                  <FiTrash2 /> Delete Selected
-                </button>
-                <button
-                  className="action-btn cancel-delete-btn"
-                  onClick={() => {
-                    setSelectedEntries([]);
-                    setShowCheckboxes(false);
-                  }}
-                >
-                  ❌ Cancel Deletion
-                </button>
-              </div>
-            )}
           </div>
         </div>
+      )}
 
-        {expanded && (
-          <div className="expanded-area">
-            <div className="expanded-card">
-              <textarea
-                value={note}
-                onChange={(e) => setNote(e.target.value)}
-                placeholder="Dear Diary..."
-                className="expanded-textarea melted-animated"
-                autoFocus
-              />
-              <button className="close-btn icon-only" onClick={() => setExpanded(false)}>
-                <FiX size={20} />
-              </button>
-            </div>
-          </div>
-        )}
-
-        {editingEntryModal && (
-          <div className="expanded-area">
-            <div className="expanded-card">
-              <h3 className="entry-title">{editingEntryModal.title}</h3>
-              <p className="entry-time">
-                📅 {formatDate(editingEntryModal.date)} | 🕒 {editingEntryModal.time}
-              </p>
-              <textarea
-                value={editedModalText}
-                onChange={(e) => setEditedModalText(e.target.value)}
-                className="expanded-textarea melted-animated"
-                autoFocus
-              />
-              <div style={{ position: 'relative', paddingTop: '30px' }}>
-                <button
-                  className="save-btn"
-                  onClick={() => {
-                    const updated = entries.map(entry =>
-                      entry.id === editingEntryModal.id
-                        ? { ...entry, text: editedModalText }
-                        : entry
-                    );
-                    setEntries(updated);
-                    setEditingEntryModal(null);
-                    setEditedModalText('');
-                  }}
-                >
-                  Update
-                </button>
-                <button
-                  className="edit-close-btn"
-                  onClick={() => {
-                    setEditingEntryModal(null);
-                    setEditedModalText('');
-                  }}
-                >
-                  <FiX size={20} />
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {modalEntry && (
-          <div className="expanded-area">
-            <h3 className="entry-title">{modalEntry.title}</h3>
-            <p className="entry-time">
+      {/* View Entry Modal */}
+      {modalEntry && (
+        <div className="fixed inset-0 bg-black/40 z-40 flex items-center justify-center">
+          <div className="bg-white/90 rounded-2xl shadow-xl p-8 max-w-xl w-full relative">
+            <h3 className="font-pacifico text-xl mb-2">{modalEntry.title}</h3>
+            <p className="text-xs italic text-orange-600 bg-orange-50 px-2 py-1 rounded mb-2 font-mono">
               📅 {formatDate(modalEntry.date)} | 🕒 {modalEntry.time}
             </p>
             <textarea
               value={modalEntry.text}
               readOnly
-              className="expanded-textarea firefly-animated"
+              className="w-full h-48 py-4 px-6 rounded-xl border border-orange-200 bg-gradient-to-br from-yellow-100 to-orange-100 text-brown-800 placeholder-orange-700 font-medium shadow resize-none"
             />
-            <button className="close-btn icon-only" onClick={() => setModalEntry(null)}>
-              <FiX size={20} />
+            <button
+              className="absolute top-4 right-4 text-red-500 text-2xl hover:text-red-700 transition"
+              onClick={() => setModalEntry(null)}
+              title="Close"
+            >
+              <FiX />
             </button>
           </div>
-        )}
-      </div>
-      </>
+        </div>
+      )}
+    </div>
   );
 };
 
