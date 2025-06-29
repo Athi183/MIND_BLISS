@@ -26,7 +26,7 @@ const MeloPopup = () => {
       } cursor-pointer`}
       onClick={() => navigate('/chatbot')}
     >
-      <div>
+      <div >
         <Lottie
           animationData={animationData}
           loop={true}

@@ -27,7 +27,6 @@ html, body, #root {
 }
 
 body {
-  background-image: url('/assets/mindbliss-bg.jpg');
   background-size: 100% 100%; /* Stretch to fill without leaving gaps */
   background-position: center center;
   background-repeat: no-repeat;
