@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
 import Lottie from 'lottie-react';
 import './BreathePage.css';
 import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState, useRef } from 'react';
 
 const BreathePage = () => {
   const navigate = useNavigate();
@@ -10,6 +10,7 @@ const BreathePage = () => {
   const [countdown, setCountdown] = useState(null);
   const [showAnimation, setShowAnimation] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
+  const rootRef = useRef(null);
 
   useEffect(() => {
     fetch('/assets/bubble.json')
@@ -17,7 +18,7 @@ const BreathePage = () => {
       .then((data) => setAnimationData(data))
       .catch((err) => console.error('Failed to load bubble.json:', err));
   }, []);
-
+  
   const handleStart = () => {
     setStarted(true);
     setShowMessage(false);
@@ -43,6 +44,7 @@ const BreathePage = () => {
   };
 
   return (
+    <div className="breathe-page-root">
     <div className="breathe-page-wrapper">
       <div className="arrow-wrapper">
         <span className="back-arrow" onClick={() => navigate('/homepage')}>&larr;</span>
@@ -109,7 +111,7 @@ const BreathePage = () => {
           </button>
         )}
       </div>
-    </div>
+    </div></div>
   );
 };
 

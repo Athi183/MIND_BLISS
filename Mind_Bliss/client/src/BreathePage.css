@@ -13,11 +13,25 @@
 
 .bubble-animation-section {
   margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: none !important;
+transform: none !important;
+transition: none !important;
 }
 
 .bubble-animation {
   width: 450px;
   height: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: none !important;
+transform: none !important;
+transition: none !important;
 }
 
 .instruction {
@@ -81,7 +95,7 @@
   margin-top: 30px;
   text-align: center;
   font-weight: 600;
-  animation: fadeIn 1s ease-in;
+  /*animation: fadeIn 1s ease-in;*/
 }
 
 @keyframes fadeIn {
@@ -115,7 +129,7 @@
   border-radius: 15px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   backdrop-filter: blur(4px);
-  animation: fadeIn 1s ease-in-out;
+  /*animation: fadeIn 1s ease-in-out;*/
 }
 .breathing-intro h2 {
   margin-bottom: 10px;
@@ -123,4 +137,21 @@
   font-size: 24px;
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
+}
+.breathe-page-root {
+  animation: none !important;
+  transform: none !important;
+  transition: none !important;
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('/assets/your-background-image.jpg') no-repeat center center fixed; /* if you use a background image */
+  background-size: cover;
+}
+.main-body-content.no-animation {
+  animation: none !important;
+  transform: none !important;
+  transition: none !important;
 }
