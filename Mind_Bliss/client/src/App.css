@@ -12,13 +12,13 @@
 /* Card Styling */
 .welcome-card {
   text-align: center;
-  padding: 2rem;
+  padding: rem;
   background-color: rgba(255, 255, 255, 0.25); /* slightly more visible */
   backdrop-filter: blur(14px);
   border-radius: 20px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
   position: relative;
-  width: 90%;
+  width: 95%;
   max-width: 600px;
   height: 320px;
   overflow: hidden;
@@ -38,7 +38,6 @@
   transform: translate(-50%, -50%);
   opacity: 0;
   transition: all 1s ease;
-  margin-bottom: 24px;
 }
 .main-heading::after {
   content: "";
@@ -81,7 +80,7 @@
 .welcome-heading {
   color: #A63D28;
   margin-top: 150px;
-  font-size: 24px;
+  font-size: 25px;
 }
 
 /* Quote styling */
@@ -93,8 +92,8 @@
 
 /* Button style */
 .auth-button {
-  margin-top: 20px;
-  padding: 12px 28px;
+  margin-top: 2px;
+  padding: 10px 28px;
   font-size: 16px;
   font-weight: 600;
   background-color: #F8E479;
