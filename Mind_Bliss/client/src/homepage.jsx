@@ -31,6 +31,7 @@ const Home = () => {
   return (
     <div className="home-wrapper"> 
       <div className="home-content">
+
         <h1 className="home-heading">Hi There! 🌞</h1>
         <div className="quote-generator">
           <h2 className="quote-heading">Quote of the Day</h2>
