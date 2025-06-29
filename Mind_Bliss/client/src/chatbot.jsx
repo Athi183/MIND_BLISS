@@ -70,19 +70,35 @@ function Chatbot() {
 
       {/* Header */}
       <div className="w-full max-w-3xl bg-white/20 border border-white/30 backdrop-blur-lg rounded-2xl shadow-lg p-6 sm:p-8 text-center">
-        <h1 className={`text-2xl md:text-3xl font-bold text-[#5a2013] animate-float-glow ${showMain ? 'opacity-100' : 'opacity-0'}`}>
-          Wanna chat with Melo?
-        </h1>
-        <h2 className="text-lg md:text-xl italic text-[#4e2a2a] mt-2">
-          Share your worries, thoughts or anything... I'm here as your companion 💬✨
-        </h2>
+  <div
+    className={`flex items-center justify-center gap-4 text-3xl md:text-4xl font-bold text-[#5a2013] animate-float-glow ${
+      showMain ? 'opacity-100' : 'opacity-0'
+    }`}
+  >
+    Wanna chat with Melo?
 
-        {animationData && visible && messages.length === 0 && (
-          <div className="w-60 h-60 mx-auto mt-4">
-            <Lottie animationData={animationData} loop={true} />
-          </div>
-        )}
+    {animationData && visible && (
+      <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32">
+        <Lottie animationData={animationData} loop={true} />
       </div>
+    )}
+  </div>
+
+  <h2 className="text-lg md:text-xl italic text-[#4e2a2a] mt-2">
+    Share your worries, thoughts or anything... I'm here as your companion 💬✨
+  </h2>
+
+  {/* ✅ Add chatbot GIF below subtitle, before messages */}
+  {messages.length === 0 && (
+    <div className="my-6 flex justify-center">
+      <img
+        src="/assets/chatbot_icon2.png"
+        alt="Chatbot Icon"
+        className="w-90 h-90 md:w-80 md:h-80 animate-bounce"
+      />
+    </div>
+  )}
+</div>
 
       {/* Chat Messages */}
       {messages.length > 0 && (
