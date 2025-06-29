@@ -53,7 +53,7 @@ const BreathePage = () => {
       {/*  Back Arrow */}
       <button
         onClick={() => navigate('/homepage')}
-        className="absolute top-5 left-5 text-3xl text-[#5a2013] hover:text-yellow-300 cursor-pointer transition-transform duration-200 hover:scale-110 bg-transparent border-none focus:outline-none"
+        className="absolute top-5 left-5 text-6xl text-[#5a2013] hover:text-yellow-300 cursor-pointer transition-transform duration-200 hover:scale-110 bg-transparent border-none focus:outline-none"
         style={{ zIndex: 9999 }}
       >
         &larr;

@@ -49,20 +49,19 @@ function Chatbot() {
   };
 
   return (
-    <div className="flex flex-col items-center px-4 pt-20 pb-10 min-h-screen relative font-quicksand">
+    <div className="flex flex-col items-center px-4 pt-4 pb-10 min-h-screen relative font-quicksand">
       <PetalAnimation />
 
-      {/* Back Arrow */}
-      <div
+      {/* ✅ Back Arrow Updated */}
+      <button
         onClick={() => navigate('/homepage')}
-        className="absolute top-10 left-5 text-8xl text-[#5a2013] hover:text-yellow-300 cursor-pointer transition-transform duration-200 hover:scale-110 z-50"
+        className="absolute top-5 left-5 text-6xl text-[#5a2013] hover:text-yellow-300 cursor-pointer transition-transform duration-200 hover:scale-110 bg-transparent border-none focus:outline-none z-50"
       >
         &larr;
-      </div>
+      </button>
 
       {/* Header Section */}
       <div className="w-full max-w-6xl bg-white/20 border border-white/30 backdrop-blur-lg rounded-2xl shadow-lg px-6 py-4 sm:px-8 sm:py-5 text-center">
-
         {/* Main Heading */}
         <div
           className={`my-4 text-3xl md:text-4xl font-bold text-[#5a2013] text-center animate-float-glow ${

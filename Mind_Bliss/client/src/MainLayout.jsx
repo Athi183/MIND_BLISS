@@ -5,7 +5,7 @@ import MusicPlayer from './musicplayer';
 
 const MainLayout = ({ children }) => {
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden flex flex-col">
       {/* 🔸 Background Video */}
       <video
         autoPlay
@@ -23,9 +23,14 @@ const MainLayout = ({ children }) => {
       <MusicPlayer />
 
       {/* 🔸 Main Content */}
-      <div className="relative z-10 main-body-content">
+      <div className="relative z-10 flex-grow main-body-content">
         {children || <Outlet />}
       </div>
+
+      {/* 🔸 Footer */}
+      <footer className="relative z-10 text-center text-sm text-gray-300 py-4 bg-black bg-opacity-50">
+        © {new Date().getFullYear()} MindBliss. All rights reserved.
+      </footer>
     </div>
   );
 };
