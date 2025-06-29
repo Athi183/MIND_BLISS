@@ -36,6 +36,7 @@ html {
  box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  overflow: visible;
 }
 
 @keyframes meltedShift {
@@ -753,4 +754,22 @@ padding-left: 32px;  /* 👈 shifts the text inside to the right */
   font-size: 20px;
   color: #0a0000;
   pointer-events: none; /* Prevent the icon from blocking input clicks */
+}
+.arrow-wrapper {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 9999;
+}
+
+.back-arrow {
+  font-size: 28px;
+  color: #5a2013;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.back-arrow:hover {
+  transform: scale(1.2);
+  color: #F8E479;
 }

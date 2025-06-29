@@ -4,6 +4,7 @@ import './journal.css';
 import { FiMaximize2, FiX, FiEdit2, FiTrash2, FiCalendar } from 'react-icons/fi';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from 'react-router-dom';
 
 const emojiList = [
   '😊', '😢', '😠', '❤️', '👍', '🎉', '✨', '🌿', '💡', '📅', '💖'
@@ -25,6 +26,7 @@ const Journal = () => {
   const [focusedField, setFocusedField] = useState(null);
   const [editingEntryModal, setEditingEntryModal] = useState(null);
   const [editedModalText, setEditedModalText] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.setItem('journalEntries', JSON.stringify(entries));
@@ -83,7 +85,10 @@ const Journal = () => {
 
   return (
     <>
-      <div className={`journal-wrapper ${expanded ? 'blurred' : ''}`}>
+<div className={`journal-wrapper ${expanded ? 'blurred' : ''}`}>
+      <div className="arrow-wrapper">
+  <span className="back-arrow" onClick={() => navigate('/homepage')}>&larr;</span>
+</div>
         <div className={`journal-card ${expanded ? 'hidden' : ''}`}>
           <h2>Your Daily Journal</h2>
 
@@ -304,7 +309,7 @@ const Journal = () => {
           </div>
         )}
       </div>
-    </>
+      </>
   );
 };
 
