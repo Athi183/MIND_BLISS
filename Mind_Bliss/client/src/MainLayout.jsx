@@ -5,11 +5,12 @@ import Header from './Header';
 import MusicPlayer from './musicplayer';
 
 const MainLayout = () => {
+
   return (
     <>
       <Header />
       <MusicPlayer />
-      <div className="main-body-content">
+      <div className= "main-body-content">
         <Outlet />
       </div>
     </>

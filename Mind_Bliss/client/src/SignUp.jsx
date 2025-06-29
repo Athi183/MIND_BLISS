@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './SignUp.css';
-import { Link , useNavigate} from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
 
 function SignUpPage() {
   const [name, setName] = useState('');
@@ -12,12 +10,7 @@ function SignUpPage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const navigate = useNavigate();
-  useEffect(() => {
-    document.body.classList.add('signup-page');
-    return () => {
-      document.body.classList.remove('signup-page');
-    };
-  }, []);
+
 
   const signupUser = () => {
     if (!name || !email || !password || !confirmPassword) {
@@ -29,81 +22,97 @@ function SignUpPage() {
       alert('Passwords do not match!');
       return;
     }
+
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailPattern.test(email)) {
-    alert('Please enter a valid email address.');
-    return;
-  }
-     navigate('/homepage');
+    if (!emailPattern.test(email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+
+    navigate('/homepage');
   };
 
   return (
-    <div className="signup-wrapper">
-      <div className="signup-card">
-        <h2 className="signup-title">Create Account</h2>
-        <p className="signup-subtitle">Join Mind Bliss for your mindfulness journey!</p>
+    <div className="flex justify-center items-center min-h-screen px-4">
+      <div className="bg-white bg-opacity-10 backdrop-blur-lg border border-white border-opacity-20 rounded-2xl p-8 w-full max-w-md text-center shadow-lg">
+        <h2 className="text-4xl font-extrabold text-white mb-2">Create Account</h2>
+        <p className="text-sm text-gray-200 mb-6">Join Mind Bliss for your mindfulness journey!</p>
 
-        <div className="signup-form">
+        <div className="flex flex-col gap-4">
           <input
             type="text"
-            className="signup-input"
             placeholder="Enter Your Name"
+            className="p-3 text-base rounded-lg bg-gray-200 text-black outline-none shadow focus:ring-2 focus:ring-yellow-400"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
 
           <input
             type="email"
-            className="signup-input"
             placeholder="Enter Email"
+            className="p-3 text-base rounded-lg bg-gray-200 text-black outline-none shadow focus:ring-2 focus:ring-yellow-400"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
 
-          {/* Password Field */}
-          <div className="password-container">
+          {/* Password */}
+          <div className="relative">
             <input
               type={showPassword ? 'text' : 'password'}
-              className="signup-input"
               placeholder="Create New Password"
+              className="p-3 text-base rounded-lg bg-gray-200 text-black outline-none shadow focus:ring-2 focus:ring-yellow-400 w-full pr-10"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <span className="toggle-icon" onClick={() => setShowPassword((prev) => !prev)}>
+            <span
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute top-3 right-3 cursor-pointer text-gray-600"
+            >
               {showPassword ? '👁️' : '🙈'}
             </span>
           </div>
 
-          {/* Confirm Password Field */}
-          <div className="password-container">
+          {/* Confirm Password */}
+          <div className="relative">
             <input
               type={showConfirmPassword ? 'text' : 'password'}
-              className="signup-input"
               placeholder="Confirm Password"
+              className="p-3 text-base rounded-lg bg-gray-200 text-black outline-none shadow focus:ring-2 focus:ring-yellow-400 w-full pr-10"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
-            <span className="toggle-icon" onClick={() => setShowConfirmPassword((prev) => !prev)}>
+            <span
+              onClick={() => setShowConfirmPassword((prev) => !prev)}
+              className="absolute top-3 right-3 cursor-pointer text-gray-600"
+            >
               {showConfirmPassword ? '👁️' : '🙈'}
             </span>
           </div>
 
-          <button className="signup-button" onClick={signupUser}>
+          {/* Sign Up Button */}
+          <button
+            onClick={signupUser}
+            className="p-3 font-bold rounded-lg bg-yellow-300 text-white hover:bg-yellow-400 transition"
+          >
             Sign Up
           </button>
-          {/* Google Sign-Up Button */}
-<button className="google-signup-button">
-  <img
-  src="assets/google-logo.png"
-    alt="Google Logo"
-    className="google-logo"
-  />
-  Sign Up with Google
-</button>
+
+          {/* Google Signup Button */}
+          <button className="p-3 font-bold rounded-lg bg-yellow-300 text-white hover:bg-yellow-400 transition flex items-center justify-center gap-2">
+            <img
+              src="assets/google-logo.png"
+              alt="Google Logo"
+              className="w-5 h-5"
+            />
+            Sign Up with Google
+          </button>
         </div>
 
-        <p className="signup-footer">
-          Already have an account? <Link className="login-link" to="/login">Login here</Link>
+        <p className="text-sm text-white mt-4">
+          Already have an account?{' '}
+          <Link to="/login" className="text-orange-600 underline hover:text-orange-700">
+            Login here
+          </Link>
         </p>
       </div>
     </div>

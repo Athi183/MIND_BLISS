@@ -28,6 +28,7 @@ function App() {
   }, []);
 const navigate = useNavigate();
   return (
+    
     <div className="welcome-wrapper">
       <div className="welcome-card">
         <h1
