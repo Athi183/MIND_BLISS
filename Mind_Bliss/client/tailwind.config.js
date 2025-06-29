@@ -11,7 +11,11 @@ export default {
         quicksand: ['Quicksand', 'sans-serif'],
       },
       animation: {
+
         'fade-slide': 'fadeSlideUp 1.5s ease-in-out forwards',
+
+        fadeSlideUp: 'fadeSlideUp 1.5s ease-in-out forwards',
+
       },
       keyframes: {
         fadeSlideUp: {
@@ -19,11 +23,14 @@ export default {
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
       },
+
       width: {
         'underline-sm': '6rem',     // 24px width for small screens
         'underline-md': '8rem',     // 32px width for medium
         'underline-lg': '10rem',    // 40px width for large
       },
+
+
     },
   },
   plugins: [],
