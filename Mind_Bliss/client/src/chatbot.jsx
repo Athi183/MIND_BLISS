@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Lottie from 'lottie-react';
 import PetalAnimation from './PetalAnimation';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,18 +6,11 @@ function Chatbot() {
   const [userMessage, setUserMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [showMain, setShowMain] = useState(false);
-  const [animationData, setAnimationData] = useState(null);
-  const [visible, setVisible] = useState(false);
   const messagesEndRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     setShowMain(true);
-    fetch('/assets/Melo.json')
-      .then((res) => res.json())
-      .then((data) => setAnimationData(data))
-      .catch((err) => console.error('Failed to load Melo.json:', err));
-    setVisible(true);
   }, []);
 
   useEffect(() => {
@@ -63,46 +55,43 @@ function Chatbot() {
       {/* Back Arrow */}
       <div
         onClick={() => navigate('/homepage')}
-        className="absolute top-5 left-5 text-2xl text-[#5a2013] hover:text-yellow-300 cursor-pointer transition-transform duration-200 hover:scale-110 z-50"
+        className="absolute top-10 left-5 text-8xl text-[#5a2013] hover:text-yellow-300 cursor-pointer transition-transform duration-200 hover:scale-110 z-50"
       >
         &larr;
       </div>
 
-      {/* Header */}
-      <div className="w-full max-w-3xl bg-white/20 border border-white/30 backdrop-blur-lg rounded-2xl shadow-lg p-6 sm:p-8 text-center">
-  <div
-    className={`flex items-center justify-center gap-4 text-3xl md:text-4xl font-bold text-[#5a2013] animate-float-glow ${
-      showMain ? 'opacity-100' : 'opacity-0'
-    }`}
-  >
-    Wanna chat with Melo?
+      {/* Header Section */}
+      <div className="w-full max-w-6xl bg-white/20 border border-white/30 backdrop-blur-lg rounded-2xl shadow-lg px-6 py-4 sm:px-8 sm:py-5 text-center">
 
-    {animationData && visible && (
-      <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32">
-        <Lottie animationData={animationData} loop={true} />
+        {/* Main Heading */}
+        <div
+          className={`my-4 text-3xl md:text-4xl font-bold text-[#5a2013] text-center animate-float-glow ${
+            showMain ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          Got thoughts? Melo’s all ears!
+        </div>
+
+        {/* Subtitle */}
+        <h2 className="text-lg md:text-xl italic text-[#ffffff] mt-0 mb-4">
+          Share your worries, thoughts or anything... I'm here as your companion 💬✨
+        </h2>
+
+        {/* Chatbot Icon (only if no messages yet) */}
+        {messages.length === 0 && (
+          <div className="mt-8 mb-10 flex justify-center">
+            <img
+              src="/assets/chatbot_icon2.png"
+              alt="Chatbot Icon"
+              className="w-90 h-90 md:w-80 md:h-80 animate-bounce"
+            />
+          </div>
+        )}
       </div>
-    )}
-  </div>
-
-  <h2 className="text-lg md:text-xl italic text-[#4e2a2a] mt-2">
-    Share your worries, thoughts or anything... I'm here as your companion 💬✨
-  </h2>
-
-  {/* ✅ Add chatbot GIF below subtitle, before messages */}
-  {messages.length === 0 && (
-    <div className="my-6 flex justify-center">
-      <img
-        src="/assets/chatbot_icon2.png"
-        alt="Chatbot Icon"
-        className="w-90 h-90 md:w-80 md:h-80 animate-bounce"
-      />
-    </div>
-  )}
-</div>
 
       {/* Chat Messages */}
       {messages.length > 0 && (
-        <div className="w-full max-w-3xl mt-6 bg-white/30 backdrop-blur-lg rounded-xl p-4 overflow-y-auto max-h-[450px] shadow-inner space-y-3">
+        <div className="w-full max-w-6xl mt-6 bg-white/30 backdrop-blur-lg rounded-xl p-4 overflow-y-auto max-h-[450px] shadow-inner space-y-3">
           {messages.map((msg, index) => (
             <div
               key={index}
@@ -123,7 +112,7 @@ function Chatbot() {
       )}
 
       {/* Input Section */}
-      <div className="w-full max-w-3xl mt-4 flex items-center gap-3">
+      <div className="w-full max-w-6xl mt-4 flex items-center gap-3">
         <input
           type="text"
           placeholder="Chat with Melo"
