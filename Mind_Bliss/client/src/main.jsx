@@ -12,8 +12,7 @@ import Chatbot from './chatbot.jsx'
 import BreathePage from './BreathePage.jsx'
 import MainLayout from './MainLayout.jsx' //  
 import Journal from './journal';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { StrictMode } from 'react';
+/*import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import App from './App.jsx';
@@ -23,7 +22,7 @@ import HomePage from './homepage.jsx';
 import Chatbot from './chatbot.jsx';
 import BreathePage from './BreathePage.jsx';
 import Journal from './journal.jsx';
-import MainLayout from './MainLayout.jsx';
+import MainLayout from './MainLayout.jsx';*/
 
 import './index.css';
 
