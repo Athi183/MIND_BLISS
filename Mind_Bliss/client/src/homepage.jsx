@@ -26,7 +26,7 @@ function Homepage() {
   return (
     <div className="relative w-full min-h-screen flex flex-col items-center justify-start text-center px-4 pt-20 pb-32  font-[Quicksand] overflow-auto">
       <h1 className="text-white text-4xl sm:text-5xl mb-4 animate-fadeSlideUp font-bold">
-        Hi There! 🌞
+        Hi There! ✨
       </h1>
 
       <div className="bg-white/20 backdrop-blur-lg shadow-xl rounded-2xl p-4 sm:p-6 max-w-md min-h-[240px] text-[#000] mt-4 animate-fadeSlideUp">

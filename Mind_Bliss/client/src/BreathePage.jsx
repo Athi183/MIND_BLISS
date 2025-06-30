@@ -50,29 +50,29 @@ const BreathePage = () => {
         backgroundImage: "url('/assets/your-background-image.jpg')",
       }}
     >
-      {/* ✅ Back Arrow */}
+      {/*  Back Arrow */}
       <button
         onClick={() => navigate('/homepage')}
-        className="absolute top-5 left-5 text-3xl text-[#5a2013] hover:text-yellow-300 cursor-pointer transition-transform duration-200 hover:scale-110 bg-transparent border-none focus:outline-none"
+        className="absolute top-5 left-5 text-6xl text-[#5a2013] hover:text-yellow-300 cursor-pointer transition-transform duration-200 hover:scale-110 bg-transparent border-none focus:outline-none"
         style={{ zIndex: 9999 }}
       >
         &larr;
       </button>
 
-      {/* ✅ Countdown */}
+      {/* Countdown */}
       {countdown !== null && (
         <p className="text-6xl md:text-7xl font-bold text-black mb-6 animate-pulse">
           {countdown}
         </p>
       )}
 
-      {/* ✅ Bubble Animation */}
+      {/*  Bubble Animation */}
       {showAnimation && animationData && (
         <>
           <div className="w-64 h-64 md:w-96 md:h-96 mx-auto pointer-events-none">
             <Lottie animationData={animationData} loop />
           </div>
-          <p className="text-lg md:text-xl font-medium text-[#A63D28] mt-4">
+          <p className="text-lg md:text-xl font-medium text-[#fff] mt-4">
             Inhale peace, exhale stress ❤️
           </p>
           <button
