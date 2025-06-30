@@ -92,7 +92,7 @@ const Journal = () => {
       {/* Optional: Top-left back arrow */}
       <div className="absolute top-8 left-8 z-20">
         <span
-          className="text-3xl text-[#5a2013] cursor-pointer hover:scale-110 hover:text-yellow-200 transition"
+          className="text-3xl text-[#5a2013] cursor-pointer hover:scale-150 hover:text-yellow-200 transition"
           onClick={() => navigate('/homepage')}
         >
           &larr;
