@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './chatbot.css';
 import Lottie from 'lottie-react';
-import PetalAnimation from './PetalAnimation.jsx';
+import PetalAnimation from './PetalAnimation';
 import { useNavigate } from 'react-router-dom';
 
 function Chatbot() {
@@ -13,17 +12,13 @@ function Chatbot() {
   const messagesEndRef = useRef(null);
   const navigate = useNavigate();
 
-
   useEffect(() => {
     setShowMain(true);
-
     fetch('/assets/Melo.json')
       .then((res) => res.json())
       .then((data) => setAnimationData(data))
       .catch((err) => console.error('Failed to load Melo.json:', err));
-
-     setVisible(true);
-    
+    setVisible(true);
   }, []);
 
   useEffect(() => {
@@ -62,59 +57,71 @@ function Chatbot() {
   };
 
   return (
-    <div className="chatbot-container">
+    <div className="flex flex-col items-center px-4 pt-20 pb-10 min-h-screen relative font-quicksand">
       <PetalAnimation />
-      <div className="arrow-wrapper">
-  <span className="back-arrow" onClick={() => navigate('/homepage')}>&larr;</span>
-</div>
 
-      <div className="chatbox-wrapper">
-        {/* Header section */}
-       <div className="chatbox-header">
-  <h1 className={`main-heading1 ${showMain ? 'fade-in' : ''}`}>
-    Wanna chat with Melo?
-  </h1>
- <h2>
-    Share your worries, thoughts or anything... I'm here as your companion 💬✨
-  </h2>
-  {animationData && visible && messages.length === 0 && (
-    <div className="melo-lottie-large">
-      <Lottie animationData={animationData} loop={true} />
-    </div>
-  )}
+      {/* Back Arrow */}
+      <div
+        onClick={() => navigate('/homepage')}
+        className="absolute top-5 left-5 text-2xl text-[#5a2013] hover:text-yellow-300 cursor-pointer transition-transform duration-200 hover:scale-110 z-50"
+      >
+        &larr;
+      </div>
 
- 
-</div>
+      {/* Header */}
+      <div className="w-full max-w-3xl bg-white/20 border border-white/30 backdrop-blur-lg rounded-2xl shadow-lg p-6 sm:p-8 text-center">
+        <h1 className={`text-2xl md:text-3xl font-bold text-[#5a2013] animate-float-glow ${showMain ? 'opacity-100' : 'opacity-0'}`}>
+          Wanna chat with Melo?
+        </h1>
+        <h2 className="text-lg md:text-xl italic text-[#4e2a2a] mt-2">
+          Share your worries, thoughts or anything... I'm here as your companion 💬✨
+        </h2>
 
-
-        {/* Chat Messages - Only show if there's a message */}
-        {messages.length > 0 && (
-          <div className="chat-messages">
-            {messages.map((msg, index) => (
-              <div key={index} className={`message ${msg.sender}`}>
-                <p>
-                  <strong>{msg.sender === 'user' ? 'You: ' : 'Melo 🍃: '}</strong>
-                  {msg.text}
-                </p>
-              </div>
-            ))}
-            <div ref={messagesEndRef} />
+        {animationData && visible && messages.length === 0 && (
+          <div className="w-60 h-60 mx-auto mt-4">
+            <Lottie animationData={animationData} loop={true} />
           </div>
         )}
+      </div>
 
-        {/* Input Section */}
-        <div className="chat-input">
-          <input
-            type="text"
-            placeholder="Chat with Melo"
-            value={userMessage}
-            onChange={(e) => setUserMessage(e.target.value)}
-            onKeyDown={handleKeyPress}
-          />
-          <button onClick={sendMessage} className="melo-send-button">
-            ➤
-          </button>
+      {/* Chat Messages */}
+      {messages.length > 0 && (
+        <div className="w-full max-w-3xl mt-6 bg-white/30 backdrop-blur-lg rounded-xl p-4 overflow-y-auto max-h-[450px] shadow-inner space-y-3">
+          {messages.map((msg, index) => (
+            <div
+              key={index}
+              className={`w-fit max-w-[80%] text-sm sm:text-base px-4 py-3 rounded-2xl shadow ${
+                msg.sender === 'user'
+                  ? 'ml-auto bg-gradient-to-r from-yellow-200 to-yellow-300 text-black'
+                  : 'mr-auto bg-gradient-to-r from-pink-200 to-pink-300 text-[#4e2a2a]'
+              }`}
+            >
+              <strong className="block text-xs text-pink-500 mb-1">
+                {msg.sender === 'user' ? 'You:' : 'Melo 🍃:'}
+              </strong>
+              {msg.text}
+            </div>
+          ))}
+          <div ref={messagesEndRef} />
         </div>
+      )}
+
+      {/* Input Section */}
+      <div className="w-full max-w-3xl mt-4 flex items-center gap-3">
+        <input
+          type="text"
+          placeholder="Chat with Melo"
+          value={userMessage}
+          onChange={(e) => setUserMessage(e.target.value)}
+          onKeyDown={handleKeyPress}
+          className="flex-1 rounded-xl px-4 py-3 bg-orange-50 focus:outline-none focus:ring-2 focus:ring-yellow-400 shadow text-black placeholder:text-gray-400"
+        />
+        <button
+          onClick={sendMessage}
+          className="px-5 py-3 bg-gradient-to-r from-yellow-400 to-orange-400 text-white font-bold rounded-xl hover:scale-105 transition-transform"
+        >
+          ➤
+        </button>
       </div>
     </div>
   );

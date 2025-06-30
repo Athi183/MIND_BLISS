@@ -1,11 +1,13 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
+/* Import Google Fonts first */
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
 
+/* Global styles */
 :root {
   line-height: 1.5;
   font-weight: 400;
@@ -14,34 +16,82 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+
 }
 
 html, body, #root {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow-x: hidden; 
-}
- 
-/* index.css */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Quicksand', sans-serif;
-  background-image: url('/assets/mindbliss-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  min-height: 100vh;
- 
+  overflow-x: hidden;
 }
 
+body {
+  background-image: url('/assets/mindbliss-bg.jpg');
+  background-size: 100% 100%; /* Stretch to fill without leaving gaps */
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Optional: For desktop parallax feel */
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+@layer base {
+  body {
+    @apply m-0 p-0 min-h-screen bg-no-repeat bg-center bg-fixed;
+    background-image: url('/assets/mindbliss-bg.jpg');
+    background-size: 100% 100%;
+  }
+  
+}
+@layer utilities {
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+    100% { transform: translateX(0); }
+  }
+
+  .animate-shake {
+    animation: shake 0.4s ease-in-out;
+  }
+}
 .main-body-content.no-animation {
   animation: none !important;
   transform: none !important;
   transition: none !important;
 }
+
 .main-body-content {
   animation: slideIn 0.5s ease;
 }
+@keyframes meltedShift {
+  0%, 100% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+}
+
+.react-datepicker__input-container input ,
+  input[type="text"],
+input:not([type]) {
+  color: #111; /* strong black */
+}
+textarea, 
+textarea:focus, 
+textarea:active, 
+.firefly-animated, 
+.firefly-animated:focus, 
+.firefly-animated:active {
+  color: #111;
+  caret-color: #111;
+ }
+ /* Add to index.css */
+ h3{
+  color:rgb(231, 43, 10);
+ }

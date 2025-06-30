@@ -1,7 +1,6 @@
-import Lottie from 'lottie-react';
-import './BreathePage.css';
-import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState, useRef } from 'react';
+import Lottie from 'lottie-react';
+import { useNavigate } from 'react-router-dom';
 
 const BreathePage = () => {
   const navigate = useNavigate();
@@ -18,7 +17,7 @@ const BreathePage = () => {
       .then((data) => setAnimationData(data))
       .catch((err) => console.error('Failed to load bubble.json:', err));
   }, []);
-  
+
   const handleStart = () => {
     setStarted(true);
     setShowMessage(false);
@@ -44,30 +43,40 @@ const BreathePage = () => {
   };
 
   return (
-    <div className="breathe-page-root">
-    <div className="breathe-page-wrapper">
-      <div className="arrow-wrapper">
-        <span className="back-arrow" onClick={() => navigate('/homepage')}>&larr;</span>
-      </div>
+    <div
+      ref={rootRef}
+      className="relative min-h-screen w-full flex flex-col items-center justify-center bg-cover bg-center px-4"
+      style={{
+        backgroundImage: "url('/assets/your-background-image.jpg')",
+      }}
+    >
+      {/* ✅ Back Arrow */}
+      <button
+        onClick={() => navigate('/homepage')}
+        className="absolute top-5 left-5 text-3xl text-[#5a2013] hover:text-yellow-300 cursor-pointer transition-transform duration-200 hover:scale-110 bg-transparent border-none focus:outline-none"
+        style={{ zIndex: 9999 }}
+      >
+        &larr;
+      </button>
 
-      <div className="bubble-animation-section">
-        {/* Countdown */}
-        {countdown !== null && <p className="countdown">{countdown}</p>}
+      {/* ✅ Countdown */}
+      {countdown !== null && (
+        <p className="text-6xl md:text-7xl font-bold text-black mb-6 animate-pulse">
+          {countdown}
+        </p>
+      )}
 
-        {/* Breathing animation */}
-        {showAnimation && animationData && (
-          <Lottie animationData={animationData} loop className="bubble-animation" />
-        )}
-
-        {/* Instruction */}
-        {showAnimation && (
-          <p className="instruction">Inhale peace, exhale stress. ❤️</p>
-        )}
-
-        {/* Stop button */}
-        {showAnimation && (
+      {/* ✅ Bubble Animation */}
+      {showAnimation && animationData && (
+        <>
+          <div className="w-64 h-64 md:w-96 md:h-96 mx-auto pointer-events-none">
+            <Lottie animationData={animationData} loop />
+          </div>
+          <p className="text-lg md:text-xl font-medium text-[#A63D28] mt-4">
+            Inhale peace, exhale stress ❤️
+          </p>
           <button
-            className="stop-breathing-btn"
+            className="mt-4 px-5 py-2 text-sm md:text-base rounded-full bg-[#A63D28] text-white hover:bg-[#8c2f1c] transition duration-300"
             onClick={() => {
               setShowAnimation(false);
               setShowMessage(true);
@@ -77,41 +86,47 @@ const BreathePage = () => {
           >
             Stop
           </button>
-        )}
+        </>
+      )}
 
-        {/* Message after animation */}
-        {showMessage && (
-          <div className="completion-message">
-            <p>Well done 💛</p>
-            <p>You gave yourself a moment of calm ✨</p>
+      {/* ✅ Completion Message */}
+      {showMessage && (
+        <div className="text-[#5a2013] mt-6 text-2xl md:text-3xl font-semibold text-center">
+          <p>Well done 💛</p>
+          <p>You gave yourself a moment of calm ✨</p>
+        </div>
+      )}
+
+      {/* ✅ Breathing Intro */}
+      {!started && !showAnimation && !showMessage && (
+        <>
+          <div className="max-w-md bg-yellow-50/70 backdrop-blur-sm text-[#5a2013] rounded-lg shadow-md p-4 text-base md:text-lg">
+            <h2 className="text-xl md:text-2xl font-bold text-[#A63D28] mb-2 font-mono">
+              Bubble Breathing
+            </h2>
+            <p>
+              This is a calming exercise to reduce stress and anxiety. As the bubble grows, inhale deeply… as it shrinks, exhale slowly. Let’s breathe together and bring peace to your mind… ☺️
+            </p>
           </div>
-        )}
-
-        {/* Intro and Start Button */}
-        {!started && !showAnimation && !showMessage && (
-          <>
-            <div className="breathing-intro">
-              <h2> Bubble Breathing</h2>
-              <p>
-                This is a calming exercise that helps reduce stress and anxiety.
-                As the bubble grows, inhale deeply… and as it shrinks, exhale slowly.
-                Let’s breathe together and bring peace to your mind..☺️
-              </p>
-            </div>
-            <button className="start-breathing-btn" onClick={handleStart}>
-              Try out
-            </button>
-          </>
-        )}
-
-        {/* If animation is done, show "Start Again" */}
-        {!started && !showAnimation && showMessage && (
-          <button className="start-breathing-btn" onClick={handleStart}>
-            Start Again
+          <button
+            onClick={handleStart}
+            className="mt-6 px-6 py-3 text-lg md:text-xl rounded-full bg-yellow-300 text-[#333] font-semibold shadow-md hover:bg-yellow-200 transition-transform duration-300 hover:scale-105"
+          >
+            Try out
           </button>
-        )}
-      </div>
-    </div></div>
+        </>
+      )}
+
+      {/* ✅ Start Again */}
+      {!started && !showAnimation && showMessage && (
+        <button
+          onClick={handleStart}
+          className="mt-6 px-6 py-3 text-lg md:text-xl rounded-full bg-yellow-300 text-[#333] font-semibold shadow-md hover:bg-yellow-200 transition-transform duration-300 hover:scale-105"
+        >
+          Start Again
+        </button>
+      )}
+    </div>
   );
 };
 
