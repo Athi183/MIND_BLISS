@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { db } from "./firebase/firebaseConfig";// adjust path if needed
+import { collection, addDoc } from 'firebase/firestore';
 
 function SignUpPage() {
   const [name, setName] = useState('');
@@ -10,27 +12,41 @@ function SignUpPage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const navigate = useNavigate();
+// Inside SignUpPage component
+const signupUser = async () => {
+  if (!name || !email || !password || !confirmPassword) {
+    alert('Please fill all fields.');
+    return;
+  }
 
+  if (password !== confirmPassword) {
+    alert('Passwords do not match!');
+    return;
+  }
 
-  const signupUser = () => {
-    if (!name || !email || !password || !confirmPassword) {
-      alert('Please fill all fields.');
-      return;
-    }
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    alert('Please enter a valid email address.');
+    return;
+  }
 
-    if (password !== confirmPassword) {
-      alert('Passwords do not match!');
-      return;
-    }
+  try {
+    await addDoc(collection(db, 'users'), {
+      name,
+      email,
+      password, // 🔒 WARNING: storing raw passwords is insecure!
+      createdAt: new Date(),
+    });
 
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-      alert('Please enter a valid email address.');
-      return;
-    }
-
+    alert('Sign up successful!');
     navigate('/homepage');
-  };
+  } catch (err) {
+    console.error('Error saving user:', err);
+    alert('Failed to sign up. Try again.');
+  }
+};
+
+
 
   return (
     <div className="flex justify-center items-center min-h-screen px-4">
