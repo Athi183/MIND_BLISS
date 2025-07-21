@@ -4,9 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from 'react-router-dom';
 
-const emojiList = [
-  '😊', '😢', '😠', '❤', '👍', '🎉', '✨', '🌿', '💡', '📅', '💖'
-];
+const emojiList = ['😊', '😢', '😠', '❤', '👍', '🎉', '✨', '🌿', '💡', '📅', '💖'];
 
 const Journal = () => {
   const [entries, setEntries] = useState(() => {
@@ -43,7 +41,7 @@ const Journal = () => {
       id: Date.now(),
       text: note,
       title,
-      date: selectedDate.toISOString(), // Store as ISO string for consistent date handling
+      date: selectedDate.toISOString(),
       time: new Date().toLocaleTimeString(),
     };
     setEntries([newEntry, ...entries]);
@@ -53,9 +51,7 @@ const Journal = () => {
   };
 
   const toggleDeleteSelection = (id, checked) => {
-    setSelectedEntries(prev =>
-      checked ? [...prev, id] : prev.filter(entryId => entryId !== id)
-    );
+    setSelectedEntries(prev => checked ? [...prev, id] : prev.filter(entryId => entryId !== id));
   };
 
   const handleDeleteSelected = () => {
@@ -82,40 +78,33 @@ const Journal = () => {
   );
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-orange-100 relative"
-      style={{
-        backgroundImage: `url('/your-bg-image.jpg'), linear-gradient(120deg,#fceabb 0%,#f8b500 100%)`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      {/* Optional: Top-left back arrow */}
-      <div className="absolute top-8 left-8 z-20">
-        <span
-          className="text-3xl text-[#5a2013] cursor-pointer hover:scale-150 hover:text-yellow-200 transition"
-          onClick={() => navigate('/homepage')}
-        >
-          &larr;
-        </span>
-      </div>
-      {/* Centered Card */}
-      <div className={`relative w-full max-w-xl bg-white/80 shadow-2xl rounded-3xl p-10 flex flex-col items-center
-        ${expanded || modalEntry || editingEntryModal ? "blur-sm pointer-events-none select-none" : ""}
-        backdrop-blur-md bg-white/50 border border-orange-200`}
+    <div className="min-h-screen w-full flex items-center justify-center relative">
+      <div className="absolute top-4 left-4 z-50">
+  <span
+    className="text-6xl text-[#5a2013] cursor-pointer hover:scale-125 hover:text-yellow-300 transition"
+    onClick={() => navigate('/homepage')}
+  >
+    &larr;
+  </span>
+</div>
+
+
+      <div className={`relative w-full max-w-xl p-10 flex flex-col items-center 
+        ${expanded || modalEntry || editingEntryModal ? "blur-sm pointer-events-none select-none" : ""}`}
       >
         <h2 className="font-pacifico text-center mb-6 text-3xl text-brown-900 drop-shadow-lg">Your Daily Journal</h2>
-        {/* Date Picker */}
+
         <div className="w-full flex items-center mb-4 relative">
           <DatePicker
-            selected={selectedDate}
-            onChange={(date) => setSelectedDate(date)}
-            className="w-full py-3 px-6 pr-12 rounded-xl border border-orange-200 bg-gradient-to-r from-yellow-100 to-yellow-200 !text-black font-pacifico shadow outline-none focus:ring-2 focus:ring-orange-300 transition"
-            dateFormat="MMMM d,PPPP"
-          />
+    selected={selectedDate}
+    onChange={(date) => setSelectedDate(date)}
+    className="w-full py-3 px-6 pr-12 rounded-xl border border-orange-200 bg-gradient-to-r from-yellow-100 to-yellow-200 !text-black font-pacifico shadow outline-none focus:ring-2 focus:ring-orange-300 transition"
+    dateFormat="PPPP"
+/>
+
           <FiCalendar className="absolute right-4 text-xl text-orange-600 pointer-events-none" />
         </div>
 
-        {/* Title input */}
         <input
           type="text"
           className="w-full py-3 px-6 rounded-xl border border-orange-200 mb-4 bg-gradient-to-r from-yellow-100 to-yellow-200 !text-black font-pacifico placeholder-gray-400 shadow outline-none focus:ring-2 focus:ring-orange-300 transition"
@@ -126,7 +115,6 @@ const Journal = () => {
           required
         />
 
-        {/* Note textarea wrapper */}
         <div className="w-full mb-4 relative">
           <textarea
             value={note}
@@ -144,7 +132,6 @@ const Journal = () => {
           </button>
         </div>
 
-        {/* Emoji Picker */}
         <div className="flex flex-wrap gap-3 mb-4 justify-center">
           {emojiList.map((emoji, index) => (
             <button
@@ -158,7 +145,6 @@ const Journal = () => {
           ))}
         </div>
 
-        {/* Save Button */}
         <button
           className="w-full py-3 bg-orange-500 hover:bg-orange-400 text-white font-bold text-lg rounded-xl shadow transition mb-4"
           onClick={handleSave}
@@ -166,13 +152,11 @@ const Journal = () => {
           Save Entry
         </button>
 
-        {/* Entry List */}
         <div className="w-full mt-2">
           <div className="flex items-start justify-between mb-3">
             <h2 className="text-lg font-bold !text-white font-sans">
               Entries for {selectedDate.toDateString()}
             </h2>
-            {/* Trash & delete controls */}
             <div className="flex items-center gap-2">
               {entriesByDate.length > 0 && (
                 <button
@@ -185,9 +169,8 @@ const Journal = () => {
               )}
             </div>
           </div>
-          {/* Entries */}
           {entriesByDate.length === 0 ? (
-            <p className="text-gray-500 text-base text-left pl-3">No entries yet for this date.</p>
+            <p className="text-black text-base text-left pl-3">No entries yet for this date.</p>
           ) : (
             entriesByDate.map((entry) => (
               <div
@@ -255,7 +238,6 @@ const Journal = () => {
         </div>
       </div>
 
-      {/* Expanded Area Modal */}
       {expanded && (
         <div className="fixed inset-0 bg-black/40 z-30 flex items-center justify-center">
           <div className="bg-white/90 rounded-2xl shadow-xl p-8 max-w-xl w-full relative border border-orange-200">
@@ -277,11 +259,10 @@ const Journal = () => {
         </div>
       )}
 
-      {/* Edit Entry Modal */}
       {editingEntryModal && !modalEntry && (
         <div className="fixed inset-0 bg-black/40 z-40 flex items-center justify-center">
           <div className="bg-orange-200 rounded-2xl shadow-xl p-8 max-w-xl w-full relative text-black border-2 border-orange-300">
-            <h3 className="font-pacifico text-xl mb-2 !text-orange-700">{editingEntryModal.title}</h3> {/* Changed to OrangeRed */}
+            <h3 className="font-pacifico text-xl mb-2 !text-orange-700">{editingEntryModal.title}</h3>
             <p className="text-xs italic text-orange-600 bg-orange-50 px-2 py-1 rounded mb-2 font-mono">
               📅 {formatDate(editingEntryModal.date)} | 🕒 {editingEntryModal.time}
             </p>
@@ -321,13 +302,10 @@ const Journal = () => {
         </div>
       )}
 
-      {/* View Entry Modal */}
       {modalEntry && !editingEntryModal && (
         <div className="fixed inset-0 bg-black/40 z-40 flex items-center justify-center">
           <div className="bg-orange-200 rounded-2xl shadow-xl p-8 max-w-xl w-full relative text-black border-2 border-orange-300">
-            {/* The style for modalEntry.title was already present with red-500. Keeping it consistent or you can adjust */}
             <h3 className="font-pacifico text-xl mb-2 text-red-500" style={{ color: '#ef4444', fontWeight: 'bold' }}>{modalEntry.title}</h3>
-
             <p className="text-xs italic text-orange-600 bg-orange-50 px-2 py-1 rounded mb-2 font-mono">
               📅 {formatDate(modalEntry.date)} | 🕒 {modalEntry.time}
             </p>
