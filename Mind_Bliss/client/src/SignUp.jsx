@@ -19,10 +19,18 @@ function SignUpPage() {
       return;
     }
 
-    if (password !== confirmPassword) {
-      alert('Passwords do not match!');
-      return;
-    }
+    if (password.length < 8) {
+  alert('Password must be at least 8 characters long.');
+  return;
+}
+
+const passwordPattern =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&])[A-Za-z\d@$!%*?#&]{8,}$/;
+
+if (!passwordPattern.test(password)) {
+  alert('Password must include uppercase, lowercase, number, and special character.');
+  return;
+}
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
