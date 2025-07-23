@@ -1,21 +1,32 @@
-// Import the functions you need from the SDKs you need
+// client/src/firebase/firebaseConfig.js
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+// 🔐 Your actual config goes here
 const firebaseConfig = {
+
   apiKey: "AIzaSyDWoaAAWMFLimXBJln05Pxjl0sulJyVc34",
+
   authDomain: "mindbliss-88494.firebaseapp.com",
+
   projectId: "mindbliss-88494",
+
   storageBucket: "mindbliss-88494.firebasestorage.app",
+
   messagingSenderId: "79830786558",
+
   appId: "1:79830786558:web:b813915454498975cea0af",
+
   measurementId: "G-17CDGEJTDD"
+
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+
+export { db ,auth};

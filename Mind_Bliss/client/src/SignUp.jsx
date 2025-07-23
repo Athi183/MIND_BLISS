@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { db } from "./firebase/firebaseConfig";// adjust path if needed
+import { db, auth } from './firebase/firebaseConfig';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { collection, addDoc } from 'firebase/firestore';
 
 function SignUpPage() {
@@ -10,43 +11,43 @@ function SignUpPage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
   const navigate = useNavigate();
-// Inside SignUpPage component
-const signupUser = async () => {
-  if (!name || !email || !password || !confirmPassword) {
-    alert('Please fill all fields.');
-    return;
-  }
 
-  if (password !== confirmPassword) {
-    alert('Passwords do not match!');
-    return;
-  }
+  const signupUser = async () => {
+    if (!name || !email || !password || !confirmPassword) {
+      alert('Please fill all fields.');
+      return;
+    }
 
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailPattern.test(email)) {
-    alert('Please enter a valid email address.');
-    return;
-  }
+    if (password !== confirmPassword) {
+      alert('Passwords do not match!');
+      return;
+    }
 
-  try {
-    await addDoc(collection(db, 'users'), {
-      name,
-      email,
-      password, // 🔒 WARNING: storing raw passwords is insecure!
-      createdAt: new Date(),
-    });
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
 
-    alert('Sign up successful!');
-    navigate('/homepage');
-  } catch (err) {
-    console.error('Error saving user:', err);
-    alert('Failed to sign up. Try again.');
-  }
-};
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
 
+      await addDoc(collection(db, 'users'), {
+        uid: user.uid,
+        name,
+        email,
+        createdAt: new Date()
+      });
 
+      alert('Sign up successful!');
+      navigate('/homepage');
+    } catch (err) {
+      console.error('Error during sign up:', err.message);
+      alert('Failed to sign up. Try again.');
+    }
+  };
 
   return (
     <div className="flex justify-center items-center min-h-screen px-4">
@@ -58,25 +59,22 @@ const signupUser = async () => {
           <input
             type="text"
             placeholder="Enter Your Name"
-            className="p-3 text-base rounded-lg bg-gray-200 text-black outline-none shadow focus:ring-2 focus:ring-yellow-400"
+            className="p-3 text-base rounded-lg bg-gray-200 text-black"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-
           <input
             type="email"
             placeholder="Enter Email"
-            className="p-3 text-base rounded-lg bg-gray-200 text-black outline-none shadow focus:ring-2 focus:ring-yellow-400"
+            className="p-3 text-base rounded-lg bg-gray-200 text-black"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-
-          {/* Password */}
           <div className="relative">
             <input
               type={showPassword ? 'text' : 'password'}
               placeholder="Create New Password"
-              className="p-3 text-base rounded-lg bg-gray-200 text-black outline-none shadow focus:ring-2 focus:ring-yellow-400 w-full pr-10"
+              className="p-3 text-base rounded-lg bg-gray-200 text-black w-full pr-10"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -87,13 +85,11 @@ const signupUser = async () => {
               {showPassword ? '👁️' : '🙈'}
             </span>
           </div>
-
-          {/* Confirm Password */}
           <div className="relative">
             <input
               type={showConfirmPassword ? 'text' : 'password'}
               placeholder="Confirm Password"
-              className="p-3 text-base rounded-lg bg-gray-200 text-black outline-none shadow focus:ring-2 focus:ring-yellow-400 w-full pr-10"
+              className="p-3 text-base rounded-lg bg-gray-200 text-black w-full pr-10"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
@@ -105,7 +101,6 @@ const signupUser = async () => {
             </span>
           </div>
 
-          {/* Sign Up Button */}
           <button
             onClick={signupUser}
             className="p-3 font-bold rounded-lg bg-yellow-300 text-white hover:bg-yellow-400 transition"
@@ -113,13 +108,8 @@ const signupUser = async () => {
             Sign Up
           </button>
 
-          {/* Google Signup Button */}
           <button className="p-3 font-bold rounded-lg bg-yellow-300 text-white hover:bg-yellow-400 transition flex items-center justify-center gap-2">
-            <img
-              src="assets/google-logo.png"
-              alt="Google Logo"
-              className="w-5 h-5"
-            />
+            <img src="assets/google-logo.png" alt="Google Logo" className="w-5 h-5" />
             Sign Up with Google
           </button>
         </div>
