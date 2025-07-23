@@ -1,5 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from "./firebase/firebaseConfig.js"; // ✅ just one dot
+
+
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -11,7 +15,7 @@ const LoginPage = () => {
 
   const togglePassword = () => setShowPassword(!showPassword);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let hasError = false;
 
@@ -26,7 +30,13 @@ const LoginPage = () => {
     }
 
     if (!hasError) {
-      navigate('/homepage');
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        navigate('/homepage'); // 🎉 success!
+      } catch (error) {
+        console.error(error);
+        alert('Oops! Invalid email or password. Try again? 😬');
+      }
     }
 
     setTimeout(() => {
