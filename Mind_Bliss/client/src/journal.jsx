@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from 'react-router-dom';
 import { db } from './firebase/firebaseConfig'; // Adjust path if needed
-import { collection, addDoc, query, Timestamp, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { collection, addDoc, Timestamp, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 
 const emojiList = ['😊', '😢', '😠', '❤', '👍', '🎉', '✨', '🌿', '💡', '📅', '💖'];
 
