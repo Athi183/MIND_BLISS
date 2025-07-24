@@ -1,12 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Quicksand:wght@400;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Import Google Fonts first */
-@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
-
+ 
 /* Global styles */
 :root {
   line-height: 1.5;

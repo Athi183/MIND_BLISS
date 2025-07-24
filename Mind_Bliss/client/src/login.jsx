@@ -3,8 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from "./firebase/firebaseConfig.js"; // ✅ just one dot
 
-
-
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -51,12 +49,14 @@ const LoginPage = () => {
         <h1 className="text-3xl font-bold text-white mb-2">Welcome Back!</h1>
         <p className="text-lg text-black mb-6">Start your day with gratitude</p>
 
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit} autoComplete="on">
           {/* Email */}
           <div className="relative">
             <input
               ref={emailRef}
               type="email"
+              name="email"
+              autoComplete="email"
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -69,6 +69,8 @@ const LoginPage = () => {
             <input
               ref={passwordRef}
               type={showPassword ? 'text' : 'password'}
+              name="password"
+              autoComplete="current-password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
