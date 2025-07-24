@@ -77,10 +77,15 @@ const Journal = () => {
     };
     try {
       await addDoc(collection(db, "journalEntries"), newEntry);
-      const snapshot = await getDocs(collection(db, "journalEntries"));
+      // ✅ FETCH ONLY CURRENT USER'S ENTRIES
+    const q = query(
+      collection(db, "journalEntries"),
+      where("uid", "==", user.uid)
+    );
+      const snapshot = await getDocs(q);
       const data = snapshot.docs.map(doc => ({
         ...doc.data(),
-        id: doc.id,
+        id: auth.currentUser.uid,
       }));
       setEntries(data.sort((a, b) => new Date(b.date) - new Date(a.date)));
       setNote('');
