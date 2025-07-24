@@ -3,15 +3,13 @@ import { FiMaximize2, FiX, FiEdit2, FiTrash2, FiCalendar } from 'react-icons/fi'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from 'react-router-dom';
+import { db } from './firebase/firebaseConfig'; // Adjust path if needed
+import { collection, addDoc, query, Timestamp, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 
 const emojiList = ['😊', '😢', '😠', '❤', '👍', '🎉', '✨', '🌿', '💡', '📅', '💖'];
 
 const Journal = () => {
-  const [entries, setEntries] = useState(() => {
-    const saved = localStorage.getItem('journalEntries');
-    return saved ? JSON.parse(saved) : [];
-  });
-
+  const [entries, setEntries] = useState([]);
   const [note, setNote] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [expanded, setExpanded] = useState(false);
@@ -22,13 +20,29 @@ const Journal = () => {
   const [focusedField, setFocusedField] = useState(null);
   const [editingEntryModal, setEditingEntryModal] = useState(null);
   const [editedModalText, setEditedModalText] = useState('');
+  const [editedModalTitle, setEditedModalTitle] = useState('');
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.setItem('journalEntries', JSON.stringify(entries));
-  }, [entries]);
+    const fetchEntries = async () => {
+      try {
+        const snapshot = await getDocs(collection(db, "journalEntries"));
+        const data = snapshot.docs.map(doc => ({
+          ...doc.data(),
+          id: doc.id, // Firebase doc ID
+        }));
+        setEntries(
+          data.sort((a, b) => new Date(b.date) - new Date(a.date))
+        );
+      } catch (error) {
+        console.error("Error fetching entries:", error);
+      }
+    };
+    fetchEntries();
+  }, []);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!title.trim()) {
       alert('Please enter a title.');
       return;
@@ -38,27 +52,46 @@ const Journal = () => {
       return;
     }
     const newEntry = {
-      id: Date.now(),
-      text: note,
       title,
+      text: note,
       date: selectedDate.toISOString(),
       time: new Date().toLocaleTimeString(),
+      createdAt: Timestamp.now(),
     };
-    setEntries([newEntry, ...entries]);
-    setNote('');
-    setTitle('');
-    setFocusedField(null);
+    try {
+      await addDoc(collection(db, "journalEntries"), newEntry);
+      const snapshot = await getDocs(collection(db, "journalEntries"));
+      const data = snapshot.docs.map(doc => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setEntries(data.sort((a, b) => new Date(b.date) - new Date(a.date)));
+      setNote('');
+      setTitle('');
+      setFocusedField(null);
+    } catch (error) {
+      console.error("Error saving to Firebase:", error);
+      alert("Failed to save entry to Firebase.");
+    }
   };
 
   const toggleDeleteSelection = (id, checked) => {
     setSelectedEntries(prev => checked ? [...prev, id] : prev.filter(entryId => entryId !== id));
   };
 
-  const handleDeleteSelected = () => {
-    const updated = entries.filter(entry => !selectedEntries.includes(entry.id));
-    setEntries(updated);
-    setSelectedEntries([]);
-    setShowCheckboxes(false);
+  const handleDeleteSelected = async () => {
+    try {
+      for (const id of selectedEntries) {
+        await deleteDoc(doc(db, "journalEntries", id));
+      }
+      const updated = entries.filter(entry => !selectedEntries.includes(entry.id));
+      setEntries(updated);
+      setSelectedEntries([]);
+      setShowCheckboxes(false);
+    } catch (error) {
+      console.error("Error deleting entries:", error);
+      alert("Failed to delete one or more entries.");
+    }
   };
 
   const addEmoji = (emoji) => {
@@ -80,14 +113,13 @@ const Journal = () => {
   return (
     <div className="min-h-screen w-full flex items-center justify-center relative">
       <div className="absolute top-4 left-4 z-50">
-  <span
-    className="text-6xl text-[#5a2013] cursor-pointer hover:scale-125 hover:text-yellow-300 transition"
-    onClick={() => navigate('/homepage')}
-  >
-    &larr;
-  </span>
-</div>
-
+        <span
+          className="text-6xl text-[#5a2013] cursor-pointer hover:scale-125 hover:text-yellow-300 transition"
+          onClick={() => navigate('/homepage')}
+        >
+          &larr;
+        </span>
+      </div>
 
       <div className={`relative w-full max-w-xl p-10 flex flex-col items-center 
         ${expanded || modalEntry || editingEntryModal ? "blur-sm pointer-events-none select-none" : ""}`}
@@ -96,12 +128,11 @@ const Journal = () => {
 
         <div className="w-full flex items-center mb-4 relative">
           <DatePicker
-    selected={selectedDate}
-    onChange={(date) => setSelectedDate(date)}
-    className="w-full py-3 px-6 pr-12 rounded-xl border border-orange-200 bg-gradient-to-r from-yellow-100 to-yellow-200 !text-black font-pacifico shadow outline-none focus:ring-2 focus:ring-orange-300 transition"
-    dateFormat="PPPP"
-/>
-
+            selected={selectedDate}
+            onChange={(date) => setSelectedDate(date)}
+            className="w-full py-3 px-6 pr-12 rounded-xl border border-orange-200 bg-gradient-to-r from-yellow-100 to-yellow-200 !text-black font-pacifico shadow outline-none focus:ring-2 focus:ring-orange-300 transition"
+            dateFormat="PPPP"
+          />
           <FiCalendar className="absolute right-4 text-xl text-orange-600 pointer-events-none" />
         </div>
 
@@ -127,6 +158,7 @@ const Journal = () => {
             className="absolute bottom-2 right-2 text-lg text-orange-600 hover:text-orange-900 transition"
             onClick={() => setExpanded(true)}
             title="Expand"
+            type="button"
           >
             <FiMaximize2 />
           </button>
@@ -163,6 +195,7 @@ const Journal = () => {
                   className="bg-transparent border-none text-red-500 hover:text-red-700 text-xl transition"
                   title="Toggle delete selection"
                   onClick={() => setShowCheckboxes(prev => !prev)}
+                  type="button"
                 >
                   <FiTrash2 />
                 </button>
@@ -185,8 +218,10 @@ const Journal = () => {
                       onClick={() => {
                         setEditingEntryModal(entry);
                         setEditedModalText(entry.text);
+                        setEditedModalTitle(entry.title);
                       }}
                       title="Edit Entry"
+                      type="button"
                     >
                       <FiEdit2 size={18} />
                     </button>
@@ -194,6 +229,7 @@ const Journal = () => {
                       className="text-orange-700 hover:text-orange-900 p-1"
                       onClick={() => setModalEntry(entry)}
                       title="Open Entry"
+                      type="button"
                     >
                       Open
                     </button>
@@ -221,6 +257,7 @@ const Journal = () => {
               <button
                 className="flex items-center gap-2 bg-red-600 text-white rounded-lg px-6 py-2 font-bold hover:bg-red-700 transition"
                 onClick={handleDeleteSelected}
+                type="button"
               >
                 <FiTrash2 /> Delete Selected
               </button>
@@ -230,6 +267,7 @@ const Journal = () => {
                   setSelectedEntries([]);
                   setShowCheckboxes(false);
                 }}
+                type="button"
               >
                 ❌ Cancel Deletion
               </button>
@@ -252,6 +290,7 @@ const Journal = () => {
               className="absolute top-4 right-4 text-red-500 text-2xl hover:text-red-700 transition"
               onClick={() => setExpanded(false)}
               title="Close"
+              type="button"
             >
               <FiX />
             </button>
@@ -266,6 +305,14 @@ const Journal = () => {
             <p className="text-xs italic text-orange-600 bg-orange-50 px-2 py-1 rounded mb-2 font-mono">
               📅 {formatDate(editingEntryModal.date)} | 🕒 {editingEntryModal.time}
             </p>
+            <input
+              type="text"
+              placeholder="Edit Title"
+              value={editedModalTitle}
+              onChange={(e) => setEditedModalTitle(e.target.value)}
+              className="w-full py-2 px-4 rounded-xl border border-orange-200 mb-4 bg-white text-black font-medium shadow"
+            />
+
             <textarea
               value={editedModalText}
               onChange={(e) => setEditedModalText(e.target.value)}
@@ -275,16 +322,29 @@ const Journal = () => {
             <div className="flex justify-between items-center mt-6">
               <button
                 className="bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-6 rounded-xl shadow transition"
-                onClick={() => {
-                  const updated = entries.map(entry =>
-                    entry.id === editingEntryModal.id
-                      ? { ...entry, text: editedModalText }
-                      : entry
-                  );
-                  setEntries(updated);
-                  setEditingEntryModal(null);
-                  setEditedModalText('');
+                onClick={async () => {
+                  try {
+                    const entryRef = doc(db, 'journalEntries', editingEntryModal.id);
+                    if (!editedModalText.trim() || !editedModalTitle.trim()) {
+                      alert("Both title and text are required.");
+                      return;
+                    }
+                    await updateDoc(entryRef, { text: editedModalText, title: editedModalTitle });
+                    const updated = entries.map(entry =>
+                      entry.id === editingEntryModal.id
+                        ? { ...entry, text: editedModalText, title: editedModalTitle }
+                        : entry
+                    );
+                    setEntries(updated);
+                    setEditingEntryModal(null);
+                    setEditedModalText('');
+                    setEditedModalTitle('');
+                  } catch (error) {
+                    console.error("Error updating entry:", error);
+                    alert("Failed to update the entry.");
+                  }
                 }}
+                type="button"
               >
                 Update
               </button>
@@ -294,6 +354,7 @@ const Journal = () => {
                   setEditingEntryModal(null);
                   setEditedModalText('');
                 }}
+                type="button"
               >
                 <FiX /> Close
               </button>
@@ -318,6 +379,7 @@ const Journal = () => {
               className="absolute top-4 right-4 text-red-500 text-2xl hover:text-red-700 transition"
               onClick={() => setModalEntry(null)}
               title="Close"
+              type="button"
             >
               <FiX />
             </button>

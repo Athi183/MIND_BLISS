@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './index.css'; // Keep this for Google Fonts & Tailwind
+import React from 'react';
+import Journal from './journal'; 
 
 function App() {
   const [showMain, setShowMain] = useState(false);
