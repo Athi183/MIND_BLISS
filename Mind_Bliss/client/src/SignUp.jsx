@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { db, auth } from './firebase/firebaseConfig';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { db, auth, provider } from './firebase/firebaseConfig';
+import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { collection, addDoc } from 'firebase/firestore';
 
 function SignUpPage() {
@@ -19,8 +19,16 @@ function SignUpPage() {
       return;
     }
 
-    if (password !== confirmPassword) {
-      alert('Passwords do not match!');
+    if (password.length < 8) {
+      alert('Password must be at least 8 characters long.');
+      return;
+    }
+
+    const passwordPattern =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&])[A-Za-z\d@$!%*?#&]{8,}$/;
+
+    if (!passwordPattern.test(password)) {
+      alert('Password must include uppercase, lowercase, number, and special character.');
       return;
     }
 
@@ -46,6 +54,26 @@ function SignUpPage() {
     } catch (err) {
       console.error('Error during sign up:', err.message);
       alert('Failed to sign up. Try again.');
+    }
+  };
+
+  const googleSignup = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      await addDoc(collection(db, 'users'), {
+        uid: user.uid,
+        name: user.displayName,
+        email: user.email,
+        createdAt: new Date()
+      });
+
+      alert('Signed up with Google successfully!');
+      navigate('/homepage');
+    } catch (err) {
+      console.error('Google sign-in error:', err.message);
+      alert('Google Sign Up Failed!');
     }
   };
 
@@ -108,7 +136,10 @@ function SignUpPage() {
             Sign Up
           </button>
 
-          <button className="p-3 font-bold rounded-lg bg-yellow-300 text-white hover:bg-yellow-400 transition flex items-center justify-center gap-2">
+          <button
+            onClick={googleSignup}
+            className="p-3 font-bold rounded-lg bg-yellow-300 text-white hover:bg-yellow-400 transition flex items-center justify-center gap-2"
+          >
             <img src="assets/google-logo.png" alt="Google Logo" className="w-5 h-5" />
             Sign Up with Google
           </button>
