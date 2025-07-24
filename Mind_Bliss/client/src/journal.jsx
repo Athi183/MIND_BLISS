@@ -4,7 +4,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from 'react-router-dom';
 import { db } from './firebase/firebaseConfig'; // Adjust path if needed
-import { collection, addDoc, query, Timestamp, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { collection, addDoc, query,where, Timestamp, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { getAuth } from "firebase/auth";
 
 const emojiList = ['😊', '😢', '😠', '❤', '👍', '🎉', '✨', '🌿', '💡', '📅', '💖'];
 
@@ -21,13 +22,23 @@ const Journal = () => {
   const [editingEntryModal, setEditingEntryModal] = useState(null);
   const [editedModalText, setEditedModalText] = useState('');
   const [editedModalTitle, setEditedModalTitle] = useState('');
+  const auth = getAuth();
+  const user = auth.currentUser;
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEntries = async () => {
       try {
-        const snapshot = await getDocs(collection(db, "journalEntries"));
+        const user = auth.currentUser;
+      if (!user) return;
+
+      const q = query(
+        collection(db, "journalEntries"),
+        where("uid", "==", user.uid)
+      );
+      const snapshot = await getDocs(q);
+        /*const snapshot = await getDocs(collection(db, "journalEntries"));*/
         const data = snapshot.docs.map(doc => ({
           ...doc.data(),
           id: doc.id, // Firebase doc ID
@@ -51,7 +62,13 @@ const Journal = () => {
       alert('Note cannot be empty.');
       return;
     }
+    const user = auth.currentUser;
+  if (!user) {
+    alert("You must be logged in to save entries.");
+    return;
+  }
     const newEntry = {
+      uid: user.uid,
       title,
       text: note,
       date: selectedDate.toISOString(),
