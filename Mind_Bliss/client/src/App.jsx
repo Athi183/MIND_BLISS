@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './index.css'; // Keep this for Google Fonts & Tailwind
-import React from 'react';
+/*import React from 'react';
 import Journal from './journal'; 
-
+*/
 function App() {
   const [showMain, setShowMain] = useState(false);
   const [moveUp, setMoveUp] = useState(false);
@@ -45,11 +45,11 @@ function App() {
 
       {/* ✅ Main App Content */}
       <div className="relative z-10 h-full w-full flex justify-center items-center font-[Quicksand] px-4">
-        <div className="bg-white/20 backdrop-blur-xl rounded-2xl shadow-2xl w-full max-w-xl h-[360px] p-6 relative overflow-hidden text-center">
+        <div className="bg-white/20 backdrop-blur-xl rounded-2xl shadow-2xl w-full max-w-xl h-[340px] p-6 relative overflow-hidden text-center">
           <h1
-            className={`text-white font-caveat font-extrabold absolute left-1/2 transition-all duration-1000 
+            className={`text-white font-[Caveat] font-extrabold absolute left-1/2 transition-all duration-1000 
               ${showMain ? 'opacity-100' : 'opacity-0'} 
-              ${moveUp ? 'top-6 text-7xl -translate-x-1/2' : 'top-1/2 text-[120px] -translate-x-1/2 -translate-y-1/2'}
+              ${moveUp ? 'top-6 text-5xl -translate-x-1/2' : 'top-1/2 text-[80px] -translate-x-1/2 -translate-y-1/2'}
             `}
           >
             MindBliss
