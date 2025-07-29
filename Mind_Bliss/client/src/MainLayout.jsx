@@ -2,6 +2,8 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import MusicPlayer from './musicplayer';
+import ProfilePopup from './ProfilePopup';
+
 
 const MainLayout = ({ children }) => {
   return (
@@ -21,7 +23,7 @@ const MainLayout = ({ children }) => {
       {/* 🔸 Optional Global Elements */}
       <Header />
       <MusicPlayer />
-
+        <ProfilePopup user={{ name: "MindBliss User", email: "user@example.com", streak: "5 day🔥" }} />
       {/* 🔸 Main Content */}
       <div className="relative z-10 flex-grow main-body-content">
         {children || <Outlet />}

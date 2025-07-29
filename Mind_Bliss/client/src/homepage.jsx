@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import BreathePop from './breathe';
 import MeloPopup from './melopop';
 
+
+
 function Homepage() {
   const [quote, setQuote] = useState('');
   const [author, setAuthor] = useState('');
@@ -28,7 +30,7 @@ function Homepage() {
       <h1 className="text-white text-4xl sm:text-5xl mb-4 animate-fadeSlideUp font-bold">
         Hi There! ✨
       </h1>
-
+      
       <div className="bg-white/20 backdrop-blur-lg shadow-xl rounded-2xl p-4 sm:p-6 max-w-md min-h-[240px] text-[#000] mt-4 animate-fadeSlideUp">
         <h2 className="text-2xl font-extrabold text-[#A63D28] mb-6">Quote of the Day</h2>
         <p className="text-lg sm:text-xl italic mb-2">“{quote}”</p>
