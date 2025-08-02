@@ -23,11 +23,11 @@ function Chatbot() {
     setMessages((prev) => [...prev, { sender: 'user', text: userMessage }]);
 
     try {
-      const response = await fetch('http://localhost:5000/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMessage }),
-      });
+      const response = await fetch('https://mind-bliss.onrender.com/chat', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ message: userMessage }),
+});
 
       const data = await response.json();
 
