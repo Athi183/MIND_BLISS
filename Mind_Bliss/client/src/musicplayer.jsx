@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { FaVolumeMute, FaVolumeUp } from 'react-icons/fa';
-
+import ProfilePopup from './ProfilePopup';
 const MusicPlayer = () => {
   const audioRef = useRef(null);
   const [muted, setMuted] = useState(() => localStorage.getItem('muted') === 'true');
@@ -40,16 +40,26 @@ const MusicPlayer = () => {
   };
 
   return (
-    <>
-      <audio ref={audioRef} src="/assets/bgmusic.mp3" loop autoPlay />
+  <>
+    <audio ref={audioRef} src="/assets/bgmusic.mp3" loop autoPlay />
+    <div className="fixed top-4 right-4 flex items-center gap-3 z-50">
       <button
         onClick={toggleMute}
-        className="fixed top-4 right-4 bg-white/70 backdrop-blur p-3 rounded-full z-50 shadow-md hover:scale-110 transition"
+        className="bg-white/70 backdrop-blur p-3 rounded-full shadow-md hover:scale-110 transition"
+        title="Audio"
       >
-        {muted ? <FaVolumeMute className="text-[#A63D28]" size={22} /> : <FaVolumeUp className="text-[#A63D28]" size={22} />}
+        {muted ? (
+          <FaVolumeMute className="text-[#A63D28]" size={22} />
+        ) : (
+          <FaVolumeUp className="text-[#A63D28]" size={22} />
+        )}
       </button>
-    </>
-  );
+      <ProfilePopup user={{ name: 'Ammu', email: 'ammu@example.com', streak: '5 days🔥' }} />
+
+    </div>
+  </>
+);
+
 };
 
 export default MusicPlayer;

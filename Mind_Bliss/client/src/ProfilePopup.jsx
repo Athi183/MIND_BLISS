@@ -7,14 +7,10 @@ function ProfilePopup({ user }) {
   const [dp, setDp] = useState('');
   const [showFullDp, setShowFullDp] = useState(false);
 
-  const defaultDp = "https://i.pinimg.com/originals/3f/72/b7/3f72b70d77dbfa2452417814b6e70907.png";
-
   useEffect(() => {
-    const savedDp = localStorage.getItem("userDp");
+    const savedDp = localStorage.getItem('userDp');
     if (savedDp) {
       setDp(savedDp);
-    } else {
-      setDp(defaultDp);
     }
   }, []);
 
@@ -25,64 +21,85 @@ function ProfilePopup({ user }) {
     const reader = new FileReader();
     reader.onload = () => {
       setDp(reader.result);
-      localStorage.setItem("userDp", reader.result);
+      localStorage.setItem('userDp', reader.result);
     };
     reader.readAsDataURL(file);
   };
 
+  const getInitial = (name) => {
+    if (!name) return 'U';
+    return name.charAt(0).toUpperCase();
+  };
+
   return (
     <>
-      <div className="absolute top-4 right-45 z-20">
+      <div>
         <button
-  onClick={() => setShowPopup(!showPopup)}
-  className="bg-black/30 backdrop-blur-md p-3 sm:p-4 rounded-full shadow-md hover:bg-white/50 transition"
-  title="Profile"
->
-  <FiUser size={20} className="text-white" />
-</button>
-
+          onClick={() => setShowPopup(!showPopup)}
+          className="bg-white/70 backdrop-blur p-3 rounded-full shadow-md hover:scale-110 transition"
+          title="Profile"
+        >
+          <FiUser size={22} className="text-[#A63D28]" />
+        </button>
 
         {showPopup && (
-          <div className="mt-2 p-4 bg-white/90 shadow-xl rounded-xl text-left text-black w-64 animate-fadeSlideUp">
+          <div className="mt-2 p-4 bg-white/90 shadow-xl rounded-xl text-left text-black w-64 animate-fadeSlideUp absolute right-0 z-50">
             <div className="flex items-center gap-3 mb-4">
-              {/* Profile picture thumbnail */}
-              <img
-                src={dp}
-                alt="DP"
-                onClick={() => setShowFullDp(true)}
-                className="w-12 h-12 rounded-full border border-[#ffbb55] shadow-sm cursor-pointer object-cover"
-                title="Click to view full DP"
-              />
+              {/* Profile picture or initial */}
+              {dp ? (
+                <img
+                  src={dp}
+                  alt="DP"
+                  onClick={() => setShowFullDp(true)}
+                  className="w-12 h-12 rounded-full border border-[#ffbb55] shadow-sm cursor-pointer object-cover"
+                  title="Click to view full DP"
+                />
+              ) : (
+                <div
+                  onClick={() => setShowFullDp(true)}
+                  className="w-12 h-12 rounded-full border border-[#ffbb55] shadow-sm cursor-pointer bg-orange-200 text-orange-800 font-bold flex items-center justify-center text-lg"
+                  title="Click to view full DP"
+                >
+                  {getInitial(user?.name)}
+                </div>
+              )}
               <div>
-                <h3 className="text-lg font-semibold text-[#5a2013]">{user?.name || 'Guest'}</h3>
-                <p className="text-sm text-gray-600">{user?.email || 'Not signed in'}</p>
+                <h3 className="text-lg font-semibold text-[#5a2013]">
+                  {user?.name || 'Guest'}
+                </h3>
+                <p className="text-sm text-gray-600">
+                  {user?.email || 'Not signed in'}
+                </p>
               </div>
             </div>
-            <div className="text-sm mb-2">
-              <p><strong>Journal Streak:</strong> {user?.streak || '0 days'}</p>
-            </div>
-           <div className="mt-2">
-  <label
-    htmlFor="dpInput"
-    className="text-xs text-blue-600 hover:underline cursor-pointer"
-  >
-    Change Picture
-  </label>
-  <input
-    id="dpInput"
-    type="file"
-    accept="image/*"
-    onChange={handleImageChange}
-    className="hidden"
-  />
-</div>
 
+            <div className="text-sm mb-2">
+              <p>
+                <strong>Journal Streak:</strong> {user?.streak || '0 days'}
+              </p>
+            </div>
+
+            <div className="mt-2">
+              <label
+                htmlFor="dpInput"
+                className="text-xs text-blue-600 hover:underline cursor-pointer"
+              >
+                Change Picture
+              </label>
+              <input
+                id="dpInput"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="hidden"
+              />
+            </div>
           </div>
         )}
       </div>
 
       {/* Full DP View Modal */}
-      {showFullDp && (
+      {showFullDp && dp && (
         <div
           onClick={() => setShowFullDp(false)}
           className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-[999]"
